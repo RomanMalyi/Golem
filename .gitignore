@@ -1,0 +1,5 @@
+src/.idea/
+src/.vs/
+src/Golem.Api/bin/
+src/Golem.Api/obj/
+src/obj/

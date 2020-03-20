@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  golem.api:
+    image: ${DOCKER_REGISTRY-}golemapi
+    build:
+      context: .
+      dockerfile: Golem.Api/Dockerfile
