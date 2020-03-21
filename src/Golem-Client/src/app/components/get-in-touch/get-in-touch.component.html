@@ -1,0 +1,25 @@
+<div class="main-container">
+  <h1>Get In Touch</h1>
+  <h4>
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text ever since the
+    1500s, when an unknown printer took a galley of type and scrambled it to
+    make a type specimen book.
+  </h4>
+
+  <form [formGroup]="getInTouchForm">
+    <mat-form-field appearance="outline" class="text-area-field">
+      <mat-label>Leave a comment</mat-label>
+      <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="input-mat-field">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="input-mat-field">
+      <mat-label>Full Name</mat-label>
+      <input matInput placeholder="Full Name" formControlName="fullName" />
+    </mat-form-field>
+    <button mat-raised-button color="primary">Send</button>
+  </form>
+</div>

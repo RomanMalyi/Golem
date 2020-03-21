@@ -1,0 +1,46 @@
+header {
+  padding: 30px;
+  background: rgba(63, 81, 181, 0.3);
+  text-align: center;
+
+  .mat-form-field {
+    width: 90%;
+    padding: 40px;
+  }
+
+}
+footer {
+  /*display: flex;
+  justify-content: center;
+  flex-wrap: wrap;*/
+
+  border-style: solid;
+  border-color: yellowgreen;
+
+  p {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  border-style: solid;
+  border-color: blue;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+
+  li {
+    a {
+      display: block;
+      padding: 25px;
+      background-color: #dddddd;
+    }
+  }
+}

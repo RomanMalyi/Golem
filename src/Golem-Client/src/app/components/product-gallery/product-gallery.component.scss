@@ -1,0 +1,40 @@
+.gallery-container {
+  text-align: center;
+  padding: 40px;
+
+  h4 {
+    width: 50%;
+    margin: auto;
+  }
+
+  .products-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    border-style: solid;
+    border-color: blue;
+
+    .product {
+      width: 30%;
+      height: 350px;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+
+      border-style: solid;
+      border-color: yellowgreen;
+
+      .product-img {
+        height: 45%;
+        border-style: solid;
+        border-color: blue;
+      }
+      .product-info {
+        height: 45%;
+        padding: 5px;
+        border-style: solid;
+        border-color: blueviolet;
+      }
+    }
+  }
+}

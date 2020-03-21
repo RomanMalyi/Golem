@@ -1,0 +1,25 @@
+.main-container {
+  text-align: center;
+  padding: 40px;
+
+  h4 {
+    width: 50%;
+    margin: auto;
+  }
+
+  form {
+    width: 50%;
+    margin: auto;
+    /*border-style: solid;
+    border-color: blue;*/
+
+    .text-area-field {
+      width: 100%;
+    }
+
+    .input-mat-field {
+      width: 30%;
+      padding: 10px;
+    }
+  }
+}
