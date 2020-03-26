@@ -8,18 +8,28 @@
   }
 
   form {
-    width: 50%;
+    width: 60%;
     margin: auto;
-    /*border-style: solid;
-    border-color: blue;*/
 
     .text-area-field {
       width: 100%;
     }
 
-    .input-mat-field {
-      width: 30%;
-      padding: 10px;
+    .inputs-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .input-mat-field {
+        width: 40%;
+        padding-right: 10px;
+      }
+
+      button {
+        margin-top: 0.25em;
+        width: 20%;
+        height: 68px;
+      }
     }
   }
 }

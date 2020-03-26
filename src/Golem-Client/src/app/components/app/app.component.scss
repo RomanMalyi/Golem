@@ -1,8 +1,8 @@
 @import "../../../styles/colors.scss";
 
 header {
-  padding: 30px;
-  background: rgba(63, 81, 181, 0.03);
+  padding: 30px 30px 5px;
+  background: rgba(63, 81, 181, 0.04);
   text-align: center;
 
   .mat-form-field {
@@ -11,12 +11,23 @@ header {
   }
 }
 footer {
-  /*display: flex;
-  justify-content: center;
-  flex-wrap: wrap;*/
+  ul {
+    justify-content: center;
+    padding: 20px 0;
 
-  border-style: solid;
-  border-color: yellowgreen;
+    li {
+      margin-right: 1px;
+      a {
+        padding: 25px 25px;
+
+        &:hover {
+          border-bottom: 2px solid transparent;
+          cursor: pointer;
+          color: $golem-accent;
+        }
+      }
+    }
+  }
 
   p {
     text-align: center;
@@ -27,7 +38,7 @@ footer {
 ul {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 20px;
   overflow: hidden;
 
   display: flex;
@@ -40,14 +51,15 @@ ul {
     a {
       font-size: large;
       display: block;
-      padding: 25px 60px;
+      padding: 25px 70px;
 
       color: $golem-primary;
       text-decoration: none;
       border-bottom: 2px solid transparent;
       &:hover {
-        border-bottom: 2px solid $golem-primary;
+        border-bottom: 2px solid $golem-accent;
         cursor: pointer;
+        color: $golem-accent;
       }
       &.active {
         border-bottom: 2px solid $golem-accent;
@@ -57,13 +69,26 @@ ul {
 
   li:not(:last-child) > a::after {
     content: "";
-    margin-right: 2px;
     height: 20px;
     width: 2px;
-    background: $golem-primary;
+    background: $golem-primary-light;
     position: absolute;
-    right: 0;
+    right: -1px;
     top: 50%;
     margin-top: -10px;
   }
+}
+
+h1 {
+  padding: 10px 0px 40px;
+}
+
+h4 {
+  padding: 10px 0px 60px;
+}
+
+.short-divider {
+  width: 15%;
+  padding: 20px;
+  margin: auto;
 }

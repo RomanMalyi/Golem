@@ -9,17 +9,19 @@
 
   <form [formGroup]="getInTouchForm">
     <mat-form-field appearance="outline" class="text-area-field">
-      <mat-label>Leave a comment</mat-label>
+      <mat-label>Message</mat-label>
       <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
     </mat-form-field>
-    <mat-form-field appearance="outline" class="input-mat-field">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Email" formControlName="email" />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="input-mat-field">
-      <mat-label>Full Name</mat-label>
-      <input matInput placeholder="Full Name" formControlName="fullName" />
-    </mat-form-field>
-    <button mat-raised-button color="primary">Send</button>
+    <div class="inputs-container">
+      <mat-form-field appearance="outline" class="input-mat-field">
+        <mat-label>Email Address</mat-label>
+        <input matInput placeholder="Email" formControlName="email" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-mat-field">
+        <mat-label>Full Name</mat-label>
+        <input matInput placeholder="Full Name" formControlName="fullName" />
+      </mat-form-field>
+      <button mat-raised-button color="primary">Send</button>
+    </div>
   </form>
 </div>

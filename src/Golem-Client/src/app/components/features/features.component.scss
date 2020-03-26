@@ -1,3 +1,5 @@
+@import "../../../styles/colors.scss";
+
 .main-container {
   text-align: center;
   padding: 40px;
@@ -9,29 +11,26 @@
 
   .features-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
-    border-style: solid;
-    border-color: blue;
 
     .feature {
       width: 30%;
       padding: 10px;
       display: flex;
 
-      border-style: solid;
-      border-color: yellowgreen;
-
       .feature-img {
         width: 30%;
-        border-style: solid;
-        border-color: blue;
+
+        img {
+          padding-top: 40px;
+          width: 50%;
+        }
       }
       .feature-info {
+        text-align: left;
         width: 65%;
-        padding: 5px;
-        border-style: solid;
-        border-color: blueviolet;
+        padding: 25px;
       }
     }
   }
