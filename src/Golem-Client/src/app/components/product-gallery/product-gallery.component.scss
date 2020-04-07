@@ -21,6 +21,11 @@
       display: flex;
       flex-wrap: wrap;
       text-align: left;
+      border-style: solid;
+      border-color:$golem-primary-light;
+      border-width: 1px;
+      border-radius: 5px;
+      margin-bottom: 20px;
 
       h2 {
         width: 90%;
@@ -32,6 +37,7 @@
         height: 40%;
         border-style: solid;
         border-color: $golem-primary-light;
+        border-width: 1px;
         text-align: center;
 
         img {
@@ -41,10 +47,10 @@
       .product-info {
         height: 30%;
         padding: 25px;
-        border-style: solid;
-        border-color: $golem-primary;
         text-align: left;
       }
     }
   }
 }
+
+@import 'product-gallery-responsive.scss';
