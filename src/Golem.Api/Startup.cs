@@ -1,8 +1,8 @@
+using Golem.Api.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Golem.Api
 {
@@ -17,18 +17,21 @@ namespace Golem.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.WithSwagger();
             services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
             {
-                app.UseDeveloperExceptionPage();
-            }
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                c.RoutePrefix = "api";
+                c.DisplayRequestDuration();
+            });
 
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

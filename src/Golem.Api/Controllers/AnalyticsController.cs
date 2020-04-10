@@ -7,6 +7,10 @@ namespace Golem.Api.Controllers
     [Route("api")]
     public class AnalyticsController : ControllerBase
     {
+        /// <summary>
+        /// test method
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("analytics")]
         public async Task<IActionResult> Get()
         {
