@@ -1,4 +1,5 @@
 using Golem.Api.Extensions;
+using Golem.Data.Elasticsearch;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,8 @@ namespace Golem.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.WithElasticsearch(Configuration);
+            services.AddScoped<MockProjects>();
             services.WithSwagger();
             services.AddControllers();
         }
@@ -34,10 +37,7 @@ namespace Golem.Api
             app.UseRouting();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

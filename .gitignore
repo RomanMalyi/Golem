@@ -6,3 +6,5 @@ src/obj/
 src/Golem.sln.DotSettings.user
 src/Golem.Core/obj/
 src/Golem.Data/obj/
+src/Golem.Core/bin/
+src/Golem.Data/bin/
