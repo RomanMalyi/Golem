@@ -1,4 +1,5 @@
-﻿using Golem.Data.Elasticsearch.Models;
+﻿using System.Threading.Tasks;
+using Golem.Data.Elasticsearch.Models;
 using Microsoft.AspNetCore.Mvc;
 using Nest;
 
@@ -19,28 +20,23 @@ namespace Golem.Api.Controllers
         ///     Search project
         /// </summary>
         [HttpGet("elasticsearch")]
-        public IActionResult Search([FromQuery] string searchTerm)
+        public async Task<IActionResult> Search([FromQuery] string searchTerm)
         {
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                var result =
-                    _elasticClient.Search<Project>(s =>
-                        s.Query(q => q
-                                .MultiMatch(m => m
-                                    .Fields(p => p
-                                        .Field("Title")
-                                        .Field("Description"))
-                                    .Query(searchTerm)
-                                    .Fuzziness(Fuzziness.EditDistance(1))
-                                )
+            var result = await
+                _elasticClient.SearchAsync<Project>(s =>
+                    s.Query(q => q
+                            .MultiMatch(m => m
+                                .Fields(f => f.Field(p => p.Title).Field(p => p.Description))
+                                .Query(searchTerm)
+                                .Fuzziness(Fuzziness.EditDistance(1))
                             )
-                            .Take(10)
-                    );
+                        )
+                        .Take(5)
+                );
 
-                return Ok(result);
-            }
-
-            return BadRequest();
+            return Ok(result.Documents.Count != 0
+                ? result.Documents
+                : (await _elasticClient.SearchAsync<Project>(s => s.Take(5))).Documents);
         }
     }
 }
