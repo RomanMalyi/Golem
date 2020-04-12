@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Golem.Data.Elasticsearch.Models;
 using Microsoft.AspNetCore.Mvc;
 using Nest;
@@ -20,7 +21,7 @@ namespace Golem.Api.Controllers
         ///     Search project
         /// </summary>
         [HttpGet("elasticsearch")]
-        public async Task<IActionResult> Search([FromQuery] string searchTerm)
+        public async Task<ActionResult<List<Project>>> Search([FromQuery] string searchTerm)
         {
             var result = await
                 _elasticClient.SearchAsync<Project>(s =>

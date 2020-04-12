@@ -2,11 +2,11 @@
 
   <div class="products-container">
     <div *ngFor="let product of products" class="product">
-      <h2>Product</h2>
+      <h2>{{product.title}}</h2>
       <div class="product-img">
         <img src="{{product.photo}}" alt="Product">
       </div>
-      <p class="product-info">{{product.text}}</p>
+      <p class="product-info">{{product.description}}</p>
     </div>
   </div>
 </div>

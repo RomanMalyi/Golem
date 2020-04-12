@@ -35,6 +35,11 @@ namespace Golem.Api
             });
 
             app.UseRouting();
+            app.UseCors(c => c
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
