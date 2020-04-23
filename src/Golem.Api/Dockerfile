@@ -5,6 +5,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["Golem.Api/Golem.Api.csproj", "Golem.Api/"]
+COPY ["Golem.Data/Golem.Data.csproj", "Golem.Data/"]
+COPY ["Golem.Core/Golem.Core.csproj", "Golem.Core/"]
 RUN dotnet restore "Golem.Api/Golem.Api.csproj"
 COPY . .
 WORKDIR "/src/Golem.Api"
