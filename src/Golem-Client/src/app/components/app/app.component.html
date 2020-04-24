@@ -8,11 +8,11 @@
   <h1>Build web-site in 5 minutes</h1>
 
   <mat-form-field appearance="outline">
-    <input matInput placeholder="Search..." />
+    <input (keyup)="onKeyUp($event)" matInput placeholder="Search..." />
   </mat-form-field>
 </header>
 
-<app-product-gallery></app-product-gallery>
+<app-product-gallery [products]="products"></app-product-gallery>
 <mat-divider></mat-divider>
 
 <app-features></app-features>
