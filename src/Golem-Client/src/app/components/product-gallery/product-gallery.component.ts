@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ElasticsearchService } from 'src/app/services/elasticsearch.service';
+import { Component, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Project } from 'src/app/models/project';
 
 @Component({
@@ -9,4 +9,12 @@ import { Project } from 'src/app/models/project';
 })
 export class ProductGalleryComponent {
   @Input() public products: Project[];
+
+  constructor(
+    private sanitizer: DomSanitizer
+  ) {}
+
+  transform(base64Image: string) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(base64Image);
+  }
 }

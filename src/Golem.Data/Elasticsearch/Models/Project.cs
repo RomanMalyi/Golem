@@ -17,5 +17,8 @@ namespace Golem.Data.Elasticsearch.Models
             SearchAnalyzer = Indices.SearchAnalyzerName
         )]
         public string Description { get; set; }
+        
+        [Text]
+        public string ImageBase64 { get; set; }
     }
 }
