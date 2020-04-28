@@ -10,11 +10,11 @@ namespace Golem.Api.Controllers
     [Route("api")]
     public class ElasticsearchController : ControllerBase
     {
-        private readonly ElasticClient _elasticClient;
+        private readonly ElasticClient elasticClient;
 
         public ElasticsearchController(ElasticClient elasticClient)
         {
-            _elasticClient = elasticClient;
+            this.elasticClient = elasticClient;
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Golem.Api.Controllers
         public async Task<ActionResult<List<Project>>> Search([FromQuery] string searchTerm)
         {
             var result = await
-                _elasticClient.SearchAsync<Project>(s =>
+                elasticClient.SearchAsync<Project>(s =>
                     s.Query(q => q
                             .MultiMatch(m => m
                                 .Fields(f => f.Field(p => p.Title).Field(p => p.Description))
@@ -37,7 +37,7 @@ namespace Golem.Api.Controllers
 
             return Ok(result.Documents.Count != 0
                 ? result.Documents
-                : (await _elasticClient.SearchAsync<Project>(s => s.Take(5))).Documents);
+                : (await elasticClient.SearchAsync<Project>(s => s.Take(5))).Documents);
         }
     }
 }

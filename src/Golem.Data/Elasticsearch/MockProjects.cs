@@ -8,28 +8,28 @@ namespace Golem.Data.Elasticsearch
 {
     public class MockProjects
     {
-        private readonly ElasticClient _client;
-        private readonly ElasticsearchSettings _settings;
+        private readonly ElasticClient client;
+        private readonly ElasticsearchSettings settings;
 
         public MockProjects(ElasticClient client,
             ElasticsearchSettings settings)
         {
-            _client = client;
-            _settings = settings;
+            this.client = client;
+            this.settings = settings;
         }
 
         public async Task RunAsync()
         {
             //TODO: remove from production
-            var index = await _client.Indices.ExistsAsync(_settings.Index);
+            var index = await client.Indices.ExistsAsync(settings.Index);
 
             if (index.Exists)
             {
-                await _client.Indices.DeleteAsync(_settings.Index);
+                await client.Indices.DeleteAsync(settings.Index);
             }
 
             var createResult =
-                await _client.Indices.CreateAsync(_settings.Index, c => c
+                await client.Indices.CreateAsync(settings.Index, c => c
                     .Settings(s => s
                         .Analysis(a => a
                             .AddCustomSearchAnalyzer()
@@ -40,9 +40,9 @@ namespace Golem.Data.Elasticsearch
 
 
             var bulkResult =
-                await _client
+                await client
                     .BulkAsync(b => b
-                        .Index(_settings.Index)
+                        .Index(settings.Index)
                         .CreateMany(CreateProjects())
                     );
         }
