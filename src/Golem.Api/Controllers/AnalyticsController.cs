@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Golem.Api.Controllers
 {
@@ -7,14 +6,5 @@ namespace Golem.Api.Controllers
     [Route("api")]
     public class AnalyticsController : ControllerBase
     {
-        /// <summary>
-        /// test method
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("analytics")]
-        public async Task<IActionResult> Get()
-        {
-            return Ok();
-        }
     }
 }
