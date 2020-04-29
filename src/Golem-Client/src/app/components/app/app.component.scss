@@ -1,14 +1,30 @@
 @import "../../../styles/colors.scss";
 
 header {
+  position: relative;
   padding: 30px 30px 5px;
-  background: rgba(63, 81, 181, 0.04);
   text-align: center;
 
   .mat-form-field {
     width: 90%;
     padding: 40px;
   }
+}
+
+header::after {
+  content: "";
+  background: url("../../../assets/header.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.2  ;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+
 }
 footer {
   ul {
