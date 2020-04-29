@@ -1,7 +1,6 @@
 @import "../../../styles/colors.scss";
 
 header {
-  position: relative;
   padding: 30px 30px 5px;
   text-align: center;
 
@@ -11,21 +10,6 @@ header {
   }
 }
 
-header::after {
-  content: "";
-  background: url("../../../assets/header.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0.2  ;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
-
-}
 footer {
   ul {
     justify-content: center;
@@ -78,7 +62,7 @@ ul {
         color: $golem-accent;
       }
       &.active {
-        border-bottom: 2px solid $golem-accent;
+        color: $golem-accent;
       }
     }
   }
@@ -109,4 +93,4 @@ h4 {
   margin: auto;
 }
 
-@import 'app-responsive.component.scss';
+@import "app-responsive.component.scss";
