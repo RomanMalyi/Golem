@@ -18,8 +18,10 @@ namespace Golem.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.WithAppSettings(Configuration);
             services.WithElasticsearch(Configuration);
             services.AddScoped<MockProjects>();
+            services.WithServices();
             services.WithSwagger();
             services.AddControllers();
         }
