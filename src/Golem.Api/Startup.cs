@@ -1,7 +1,10 @@
+using System;
 using Golem.Api.Extensions;
 using Golem.Data.Elasticsearch;
+using Golem.Data.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +21,12 @@ namespace Golem.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //TODO: delete default connection
+            var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+            services.AddDbContext<GolemContext>(options =>
+            {
+                options.UseNpgsql(connectionString ?? Configuration.GetConnectionString("DefaultConnection"));
+            });
             services.WithAppSettings(Configuration);
             services.WithElasticsearch(Configuration);
             services.AddScoped<MockProjects>();
