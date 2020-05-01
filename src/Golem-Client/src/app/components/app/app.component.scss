@@ -5,8 +5,14 @@ header {
   text-align: center;
 
   .mat-form-field {
+    padding-bottom: 5px;
     width: 90%;
     padding: 40px;
+  }
+
+  h4 {
+    width: 50%;
+    margin: auto;
   }
 
   .logo-img {
@@ -87,11 +93,7 @@ ul {
 }
 
 h1 {
-  padding: 10px 0px 40px;
-}
-
-h4 {
-  padding: 10px 0px 60px;
+  padding: 10px 0px 20px;
 }
 
 .short-divider {

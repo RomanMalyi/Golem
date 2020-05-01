@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: Golem-Client/Dockerfile
     ports:
-      - "8888:80"
+      - "80:80"
     networks:
       - golem-net
     depends_on:
