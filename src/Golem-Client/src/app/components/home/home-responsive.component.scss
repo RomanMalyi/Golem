@@ -1,0 +1,28 @@
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  header {
+    padding: 150px 10px 5px;
+
+    .mat-form-field {
+      width: 90%;
+      padding: 0;
+    }
+
+    .logo-img {
+      margin: auto;
+      right: 40px;
+      width: 100px;
+    }
+  }
+
+  ul {
+    display: none;
+  }
+
+  .short-divider {
+    display: none;
+  }
+
+  footer {
+    padding-top: 15px;
+  }
+}

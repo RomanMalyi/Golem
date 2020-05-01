@@ -15,6 +15,7 @@ import { AppComponent } from './components/app/app.component';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
 import { FeaturesComponent } from './components/features/features.component';
 import { GetInTouchComponent } from './components/get-in-touch/get-in-touch.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 
@@ -23,7 +24,8 @@ import { GetInTouchComponent } from './components/get-in-touch/get-in-touch.comp
     AppComponent,
     ProductGalleryComponent,
     FeaturesComponent,
-    GetInTouchComponent
+    GetInTouchComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
