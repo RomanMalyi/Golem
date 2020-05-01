@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Golem.Api/Dockerfile
     ports:
-      - "5000:80"
+      - "5050:80"
     environment:
       DB_CONNECTION_STRING: "host=golem.postgres;port=5432;database=golemdb;username=golemuser;password=strongpassword2"
     networks:
