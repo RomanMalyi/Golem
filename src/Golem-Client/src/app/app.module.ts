@@ -16,6 +16,7 @@ import { ProductGalleryComponent } from './components/product-gallery/product-ga
 import { FeaturesComponent } from './components/features/features.component';
 import { GetInTouchComponent } from './components/get-in-touch/get-in-touch.component';
 import { HomeComponent } from './components/home/home.component';
+import { AnalyticsComponent } from './components/analytics/analytics.component';
 
 
 
@@ -25,7 +26,8 @@ import { HomeComponent } from './components/home/home.component';
     ProductGalleryComponent,
     FeaturesComponent,
     GetInTouchComponent,
-    HomeComponent
+    HomeComponent,
+    AnalyticsComponent
   ],
   imports: [
     BrowserModule,
