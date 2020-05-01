@@ -1,5 +1,6 @@
 using System;
 using Golem.Api.Extensions;
+using Golem.Api.Filters;
 using Golem.Data.Elasticsearch;
 using Golem.Data.PostgreSql;
 using Microsoft.AspNetCore.Builder;
@@ -29,10 +30,14 @@ namespace Golem.Api
             });
             services.WithAppSettings(Configuration);
             services.WithElasticsearch(Configuration);
+            services.WithRepositories();
             services.AddScoped<MockProjects>();
             services.WithServices();
             services.WithSwagger();
-            services.AddControllers();
+            services.AddControllers((options =>
+            {
+                options.Filters.Add<CookieFilter>();
+            }));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
