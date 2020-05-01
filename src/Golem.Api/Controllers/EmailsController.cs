@@ -17,7 +17,7 @@ namespace Golem.Api.Controllers
         }
 
         /// <summary>
-        ///     Sends "et in touch" email
+        ///     Sends "get in touch" email    
         /// </summary>
         [HttpPost("emails")]
         public async Task<IActionResult> SendEmail([FromBody] EmailModel model)

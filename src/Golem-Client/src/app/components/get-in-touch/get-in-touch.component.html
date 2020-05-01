@@ -8,18 +8,36 @@
   <form [formGroup]="getInTouchForm">
     <mat-form-field appearance="outline" class="text-area-field">
       <mat-label>Message</mat-label>
-      <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+      <textarea
+        required
+        matInput
+        placeholder="Ex. It makes me feel..."
+        formControlName="message"
+      ></textarea>
     </mat-form-field>
     <div class="inputs-container">
       <mat-form-field appearance="outline" class="input-mat-field">
         <mat-label>Email Address</mat-label>
-        <input matInput placeholder="Email" formControlName="email" />
+        <input
+          required
+          type="email"
+          matInput
+          placeholder="Email"
+          formControlName="senderEmail"
+        />
       </mat-form-field>
       <mat-form-field appearance="outline" class="input-mat-field">
         <mat-label>Full Name</mat-label>
-        <input matInput placeholder="Full Name" formControlName="fullName" />
+        <input
+          required
+          matInput
+          placeholder="Full Name"
+          formControlName="senderFullName"
+        />
       </mat-form-field>
-      <button mat-raised-button color="primary">Send</button>
+      <button (click)="SendEmail()" mat-raised-button color="primary">
+        Send
+      </button>
     </div>
   </form>
 </div>

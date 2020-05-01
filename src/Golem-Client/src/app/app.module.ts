@@ -9,6 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { AppComponent } from './components/app/app.component';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
@@ -33,7 +34,8 @@ import { GetInTouchComponent } from './components/get-in-touch/get-in-touch.comp
     MatInputModule,
     MatDividerModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

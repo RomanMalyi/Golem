@@ -32,7 +32,7 @@ namespace Golem.Api.Controllers
                                 .Fuzziness(Fuzziness.EditDistance(1))
                             )
                         )
-                        .Take(5)
+                        .Take(6)
                 );
 
             return Ok(result.Documents.Count != 0

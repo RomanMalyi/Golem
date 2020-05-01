@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/project';
-import { ElasticsearchService } from 'src/app/services/elasticsearch.service';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { ElasticsearchService } from 'src/app/services/elasticsearch.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private searchService: ElasticsearchService) {}
+  constructor(private httpService: HttpService) {}
 
   public products: Project[];
 
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   private getProjects(searchTerm: string) {
-    this.searchService.search(searchTerm).subscribe(
+    this.httpService.searchProject(searchTerm).subscribe(
       (res) => {
         this.products = res;
       },
