@@ -19,6 +19,7 @@ namespace Golem.Data.PostgreSql.Repositories
         public async Task<IEnumerable<User>> Get(int skip, int take)
         {
             return await dbContext.Users
+                .OrderByDescending(u => u.NumberOfVisits)
                 .Skip(skip)
                 .Take(take)
                 .ToListAsync();
