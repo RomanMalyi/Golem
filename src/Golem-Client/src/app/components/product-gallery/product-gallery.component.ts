@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Project } from 'src/app/models/project';
+import { ProjectModel } from 'src/app/models/projectModel';
 
 @Component({
   selector: 'app-product-gallery',
@@ -8,7 +8,7 @@ import { Project } from 'src/app/models/project';
   styleUrls: ['./product-gallery.component.scss']
 })
 export class ProductGalleryComponent {
-  @Input() public products: Project[];
+  @Input() public products: ProjectModel[];
 
   constructor(
     private sanitizer: DomSanitizer

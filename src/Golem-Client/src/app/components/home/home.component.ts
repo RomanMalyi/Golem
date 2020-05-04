@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
-import { Project } from 'src/app/models/project';
+import { ProjectModel } from 'src/app/models/projectModel';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +8,7 @@ import { Project } from 'src/app/models/project';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public products: Project[];
+  public products: ProjectModel[];
 
   constructor(private httpService: HttpService) { }
 
