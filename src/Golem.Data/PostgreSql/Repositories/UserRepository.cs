@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Golem.Data.PostgreSql.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Golem.Data.PostgreSql.Repositories
 {
@@ -11,6 +14,14 @@ namespace Golem.Data.PostgreSql.Repositories
         public UserRepository(GolemContext context)
         {
             dbContext = context;
+        }
+
+        public async Task<IEnumerable<User>> Get(int skip, int take)
+        {
+            return await dbContext.Users
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
         }
 
         public async Task<User> GetById(Guid id)

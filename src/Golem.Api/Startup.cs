@@ -29,6 +29,7 @@ namespace Golem.Api
                 options.UseNpgsql(connectionString ?? Configuration.GetConnectionString("DefaultConnection"));
             });
             services.WithAppSettings(Configuration);
+            services.WithMapper();
             services.WithElasticsearch(Configuration);
             services.WithRepositories();
             services.AddScoped<MockProjects>();
