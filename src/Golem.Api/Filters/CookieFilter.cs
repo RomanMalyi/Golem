@@ -79,7 +79,8 @@ namespace Golem.Api.Filters
             {
                 Expires = expireTimeDays.HasValue
                     ? DateTime.Now.AddDays(expireTimeDays.Value)
-                    : DateTime.Now.AddDays(10)
+                    : DateTime.Now.AddDays(10),
+                HttpOnly = true
             };
             response.Cookies.Append(key, value, option);
         }

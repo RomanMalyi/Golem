@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { ProjectModel } from '../models/projectModel';
-import { HttpParams, HttpClient } from '@angular/common/http';
+import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { GetInTouch } from '../models/getInTouchModel';
 import { UserModel } from '../models/userModel';
 import { QueryModel } from '../models/queryModel';
@@ -18,11 +18,11 @@ export class HttpService {
   public searchProject(searchTerm: string): Observable<ProjectModel[]> {
     const params = new HttpParams().append('searchTerm', searchTerm);
 
-    return this.http.get<any>(`${this.apiUrl}elasticsearch`, { params });
+    return this.http.get<any>(`${this.apiUrl}elasticsearch`, { params, withCredentials: true });
   }
 
   public sendEmail(loginViewModel: GetInTouch): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}emails`, loginViewModel);
+    return this.http.post<any>(`${this.apiUrl}emails`, loginViewModel,{ withCredentials: true });
   }
 
   public getUsers(skip: number, take: number): Observable<UserModel[]> {
@@ -30,7 +30,7 @@ export class HttpService {
       .append('skip', skip.toString())
       .append('take', take.toString());
 
-    return this.http.get<any>(`${this.apiUrl}analytics/users`, { params });
+    return this.http.get<any>(`${this.apiUrl}analytics/users`, { params, withCredentials: true });
   }
 
   public getQueries(
@@ -44,7 +44,7 @@ export class HttpService {
 
     return this.http.get<any>(
       `${this.apiUrl}analytics/users/${userId}/queries`,
-      { params }
+      { params, withCredentials: true }
     );
   }
 }
