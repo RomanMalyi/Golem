@@ -13,6 +13,7 @@ namespace Golem.Data.PostgreSql
 
         public DbSet<User> Users { get; set; }
         public DbSet<Query> Queries { get; set; }
+        public DbSet<Session> Sessions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,11 @@ namespace Golem.Data.PostgreSql
                 .HasMany(u => u.Queries)
                 .WithOne(q => q.User)
                 .HasForeignKey(u => u.UserId);
+            
+            modelBuilder.Entity<User>()
+                .HasMany(usr => usr.Sessions)
+                .WithOne(sess => sess.User)
+                .HasForeignKey(sess => sess.UserId);
         }
     }
 }

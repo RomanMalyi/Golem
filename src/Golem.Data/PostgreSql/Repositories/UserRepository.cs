@@ -47,5 +47,17 @@ namespace Golem.Data.PostgreSql.Repositories
             dbContext.Users.Remove(entity);
             await dbContext.SaveChangesAsync();
         }
+
+        public async Task<double> GetAverageNumberOfRequests()
+        {
+            return await dbContext.Users
+                .Select(u => u.Queries.Count)
+                .AverageAsync();
+        }
+
+        public async Task<int> GetCount()
+        {
+            return await dbContext.Users.CountAsync();
+        }
     }
 }

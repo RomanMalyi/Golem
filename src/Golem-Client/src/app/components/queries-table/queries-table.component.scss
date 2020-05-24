@@ -4,7 +4,6 @@
   justify-content: center;
 
   h2 {
-    padding-top: 50px;
     text-align: center;
     width: 100%;
   }
@@ -20,5 +19,31 @@
   .mat-column-methodType {
     width: 150px;
   }
+}
+.get {
+  span {
+    border-radius: 5px;
+    background-color: #77b5ee;
+  }
+}
 
+.post {
+  span {
+    border-radius: 5px;
+    background-color: #47cd91;
+  }
+}
+
+.put {
+  span {
+    border-radius: 5px;
+    background-color: #f6a238;
+  }
+}
+
+.delete {
+  span {
+    border-radius: 5px;
+    background-color: #ee433e;
+  }
 }

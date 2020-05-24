@@ -1,23 +1,57 @@
-.users-container {
+@import "../../../styles/colors.scss";
+
+.main-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: flex-start;
 
-  h2 {
-    text-align: center;
-    width: 100%;
+  padding: 20px;
+
+  .users-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    h2 {
+      text-align: center;
+      width: 100%;
+    }
+
+    .mat-column-position {
+      width: 50px;
+    }
+
+    .mat-column-numberOfVisits {
+      width: 60px;
+    }
+
+    .mat-column-numberOfRequests {
+      width: 70px;
+    }
+
+    .mat-column-lastVisitTime {
+      width: 150px;
+    }
+
+    .mat-column-country {
+      width: 150px;
+    }
+
+    .mat-column-actions {
+      width: 150px;
+    }
   }
 
-  .mat-column-id {
-    width: 450px;
-  }
+  .user-info-container {
+    max-width: 400px;
 
-  .mat-column-position {
-    width: 50px;
+    p {
+      font-size: 16px;
+      color: $golem-primary;
+    }
   }
+}
 
-  .mat-column-numberOfVisits {
-    width: 150px;
-  }
-
+.current {
+  background-color: $golem-white;
 }

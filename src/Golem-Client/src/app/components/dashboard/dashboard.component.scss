@@ -1,0 +1,12 @@
+@import "../../../styles/colors.scss";
+
+span {
+  display: inline-block;
+  border-radius: 5px;
+  min-width: 250px;
+  min-height: 30px;
+  border-style: solid;
+  border-color: $golem-primary;
+  padding: 10px;
+  margin: 10px;
+}

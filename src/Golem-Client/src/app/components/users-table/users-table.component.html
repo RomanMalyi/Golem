@@ -1,39 +1,87 @@
-<div class="users-container">
-  <h2>Users</h2>
+<div class="main-container">
+  <div class="users-list-container">
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="users" class="mat-elevation-z8">
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>No.</th>
+          <td mat-cell *matCellDef="let element">
+            {{ users.indexOf(element) + 1 }}
+          </td>
+        </ng-container>
 
-  <table mat-table [dataSource]="users" class="mat-elevation-z8">
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef>No.</th>
-      <td mat-cell *matCellDef="let element">
-        {{ users.indexOf(element) + 1 }}
-      </td>
-    </ng-container>
+        <ng-container matColumnDef="numberOfVisits">
+          <th mat-header-cell *matHeaderCellDef>Visits</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.numberOfVisits }}
+          </td>
+        </ng-container>
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>Id</th>
-      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-    </ng-container>
+        <ng-container matColumnDef="numberOfRequests">
+          <th mat-header-cell *matHeaderCellDef>Requests</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.numberOfRequests }}
+          </td>
+        </ng-container>
 
-    <ng-container matColumnDef="numberOfVisits">
-      <th mat-header-cell *matHeaderCellDef>Number of visits</th>
-      <td mat-cell *matCellDef="let element">{{ element.numberOfVisits }}</td>
-    </ng-container>
+        <ng-container matColumnDef="lastVisitTime">
+          <th mat-header-cell *matHeaderCellDef>Last visit</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.lastVisitTime | date: "dd/MM/yyyy" }}
+          </td>
+        </ng-container>
 
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          (click)="showUserQueries(element.id)"
-          mat-raised-button
-          color="primary"
-        >
-          Info
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef>Country</th>
+          <td mat-cell *matCellDef="let element">{{ element.country }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          [ngClass]="{ current: row.id === currentUser.id }"
+          (click)="showUser(row)"
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        [length]="totalUsersCount" [pageSize]="paginatorPageSize"
+        (page)="getPagingUserData($event)"
+      ></mat-paginator>
+    </div>
+  </div>
+
+  <div *ngIf="currentUser" class="user-info-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Information</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Id: {{ currentUser.id }}</p>
+        <p>Country: {{ currentUser.country }}</p>
+        <p>User agent: {{ currentUser.userAgent }}</p>
+        <p>Number of visits: {{ currentUser.numberOfVisits }}</p>
+        <p>
+          First visit time:
+          {{ currentUser.firstVisitTime | date: "dd/MM/yyyy" }}
+        </p>
+        <p>
+          Last visit time: {{ currentUser.lastVisitTime | date: "dd/MM/yyyy" }}
+        </p>
+        <p>Number of requests: {{ currentUser.numberOfRequests }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button (click)="toggleQueries()" mat-raised-button color="primary">
+          <span *ngIf="!showQueries">Show queris</span>
+          <span *ngIf="showQueries">Hide queris</span>
         </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
-<app-queries-table *ngIf="userId !== undefined" userId="{{userId}}"></app-queries-table>
+<app-queries-table
+  *ngIf="currentUser !== undefined && showQueries"
+  userId="{{ currentUser.id }}"
+></app-queries-table>

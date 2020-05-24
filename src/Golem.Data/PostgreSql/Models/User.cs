@@ -8,14 +8,23 @@ namespace Golem.Data.PostgreSql.Models
         public User()
         {
             NumberOfVisits = 1;
+            NumberOfRequests = 1;
         }
 
         public Guid Id { get; set; }
         public int NumberOfVisits { get; set; }
+        
+        public int NumberOfRequests { get; set; }
+
+        public DateTimeOffset LastVisitTime { get; set; }
+
+        public DateTimeOffset FirstVisitTime { get; set; }
+
+        public string Country { get; set; }
+
+        public string UserAgent { get; set; }
+        
         public ICollection<Query> Queries { get; set; }
-        //Last visit time
-        //First visit tame
-        //Country ??
-        //Device ??
+        public ICollection<Session> Sessions { get; set; }
     }
 }

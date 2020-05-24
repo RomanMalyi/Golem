@@ -4,6 +4,7 @@ using Golem.Data.PostgreSql.Models;
 using Golem.Data.PostgreSql.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Golem.Api.Filters
 {
@@ -39,12 +40,13 @@ namespace Golem.Api.Filters
 
                 if (cookie == null)
                 {
-                    user = await CreateUser(null);
+                    user = await CreateUser(null, context.HttpContext);
                     SetCookie(CookieKey, user.Id.ToString(), 200, context.HttpContext.Response);
                 }
                 else
                 {
-                    user = await userRepository.GetById(Guid.Parse(cookie)) ?? await CreateUser(Guid.Parse(cookie));
+                    user = await userRepository.GetById(Guid.Parse(cookie)) ??
+                           await CreateUser(Guid.Parse(cookie), context.HttpContext);
                     user.NumberOfVisits++;
                     await userRepository.Update(user);
                 }
@@ -62,9 +64,16 @@ namespace Golem.Api.Filters
             }
         }
 
-        private async Task<User> CreateUser(Guid? userId)
+        private async Task<User> CreateUser(Guid? userId, HttpContext context)
         {
-            var user = new User();
+            //TODO: add country
+            var user = new User()
+            {
+                Country = "Ukraine",
+                FirstVisitTime = DateTimeOffset.Now,
+                LastVisitTime = DateTimeOffset.Now,
+                UserAgent = context.Request.Headers["User-Agent"].ToString()
+            };
 
             if (userId.HasValue)
                 user.Id = userId.Value;
@@ -73,7 +82,7 @@ namespace Golem.Api.Filters
             return user;
         }
 
-        private void SetCookie(string key, string value, int? expireTimeDays, HttpResponse response)
+        private static void SetCookie(string key, string value, int? expireTimeDays, HttpResponse response)
         {
             var option = new CookieOptions
             {
@@ -85,7 +94,7 @@ namespace Golem.Api.Filters
             response.Cookies.Append(key, value, option);
         }
 
-        private string GetCookie(string key, HttpRequest request)
+        private static string GetCookie(string key, HttpRequest request)
         {
             return request.Cookies[key];
         }

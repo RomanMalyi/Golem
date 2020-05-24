@@ -48,5 +48,17 @@ namespace Golem.Data.PostgreSql.Repositories
             dbContext.Queries.Remove(entity);
             await dbContext.SaveChangesAsync();
         }
+
+        public async Task<int> GetCount()
+        {
+            return await dbContext.Queries.CountAsync();
+        }
+
+        public async Task<int> GetCount(Guid userId)
+        {
+            return await dbContext.Queries
+                .Where(q => q.UserId == userId)
+                .CountAsync();
+        }
     }
 }

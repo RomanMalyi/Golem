@@ -11,6 +11,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { AppComponent } from './components/app/app.component';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
@@ -20,6 +23,8 @@ import { HomeComponent } from './components/home/home.component';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { QueriesTableComponent } from './components/queries-table/queries-table.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
 
 
 
@@ -32,7 +37,8 @@ import { QueriesTableComponent } from './components/queries-table/queries-table.
     HomeComponent,
     AnalyticsComponent,
     UsersTableComponent,
-    QueriesTableComponent
+    QueriesTableComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +51,10 @@ import { QueriesTableComponent } from './components/queries-table/queries-table.
     ReactiveFormsModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatTabsModule,
+    MatCardModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

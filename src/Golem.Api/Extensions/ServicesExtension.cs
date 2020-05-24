@@ -9,6 +9,7 @@ namespace Golem.Api.Extensions
         public static void WithServices(this IServiceCollection services)
         {
             services.AddTransient<IEmailService, SendGridService>();
+            services.AddTransient<AnalyticsService>();
         }
     }
 }

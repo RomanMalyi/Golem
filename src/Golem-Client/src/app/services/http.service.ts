@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 import { ProjectModel } from '../models/projectModel';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { GetInTouch } from '../models/getInTouchModel';
-import { UserModel } from '../models/userModel';
-import { QueryModel } from '../models/queryModel';
+import { DashboardOverview } from '../models/dashboardOverview';
 
 @Injectable({
   providedIn: 'root',
@@ -18,26 +17,34 @@ export class HttpService {
   public searchProject(searchTerm: string): Observable<ProjectModel[]> {
     const params = new HttpParams().append('searchTerm', searchTerm);
 
-    return this.http.get<any>(`${this.apiUrl}elasticsearch`, { params, withCredentials: true });
+    return this.http.get<any>(`${this.apiUrl}elasticsearch`, {
+      params,
+      withCredentials: true,
+    });
   }
 
   public sendEmail(loginViewModel: GetInTouch): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}emails`, loginViewModel,{ withCredentials: true });
+    return this.http.post<any>(`${this.apiUrl}emails`, loginViewModel, {
+      withCredentials: true,
+    });
   }
 
-  public getUsers(skip: number, take: number): Observable<UserModel[]> {
+  public getUsers(skip: number, take: number): Observable<any> {
     const params = new HttpParams()
       .append('skip', skip.toString())
       .append('take', take.toString());
 
-    return this.http.get<any>(`${this.apiUrl}analytics/users`, { params, withCredentials: true });
+    return this.http.get<any>(`${this.apiUrl}analytics/users`, {
+      params,
+      withCredentials: true,
+    });
   }
 
   public getQueries(
     userId: string,
     skip: number,
     take: number
-  ): Observable<QueryModel[]> {
+  ): Observable<any> {
     const params = new HttpParams()
       .append('skip', skip.toString())
       .append('take', take.toString());
@@ -46,5 +53,11 @@ export class HttpService {
       `${this.apiUrl}analytics/users/${userId}/queries`,
       { params, withCredentials: true }
     );
+  }
+
+  public getDashboardOverview(): Observable<DashboardOverview> {
+    return this.http.get<any>(`${this.apiUrl}analytics/dashboard-overview`, {
+      withCredentials: true,
+    });
   }
 }
