@@ -35,10 +35,7 @@ namespace Golem.Api
             services.AddScoped<MockProjects>();
             services.WithServices();
             services.WithSwagger();
-            services.AddControllers((options =>
-            {
-                options.Filters.Add<CookieFilter>();
-            }));
+            services.AddControllers((options => { options.Filters.Add<CookieFilter>(); }));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -57,7 +54,7 @@ namespace Golem.Api
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithOrigins("http://localhost:4200"));
+                .WithOrigins("http://localhost:4200", "https://golem.gq"));
 
             app.UseAuthorization();
 
