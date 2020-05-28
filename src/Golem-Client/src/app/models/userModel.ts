@@ -8,4 +8,6 @@ export class UserModel {
   region: string;
   city: string;
   userAgent: string;
+  operatingSystem: string;
+  device: string;
 }

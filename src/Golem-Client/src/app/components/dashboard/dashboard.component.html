@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="overviewData">
   <mat-card-content>
     <span>Total users: {{overviewData.numberOfUsers}}</span>
     <span>Total requests: {{overviewData.numberOfRequests}}</span>

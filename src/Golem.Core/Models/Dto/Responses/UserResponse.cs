@@ -19,6 +19,10 @@ namespace Golem.Core.Models.Dto.Responses
         public string Region { get; set; }
         
         public string City { get; set; }
+        
+        public string OperatingSystem { get; set; }
+        
+        public string Device { get; set; }
 
         public string UserAgent { get; set; }
     }

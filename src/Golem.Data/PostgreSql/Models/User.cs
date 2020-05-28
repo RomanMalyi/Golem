@@ -27,6 +27,10 @@ namespace Golem.Data.PostgreSql.Models
         public string City { get; set; }
 
         public string UserAgent { get; set; }
+
+        public string OperatingSystem { get; set; }
+        
+        public string Device { get; set; }
         
         public ICollection<Query> Queries { get; set; }
         public ICollection<Session> Sessions { get; set; }

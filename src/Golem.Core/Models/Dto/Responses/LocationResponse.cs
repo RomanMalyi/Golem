@@ -21,9 +21,6 @@ namespace Golem.Core.Models.Dto.Responses
         [JsonProperty("zip_code")]
         public string ZipCode { get; set; }
 
-        [JsonProperty("latitude")]
-        public decimal Latitude { get; set; }
-
         [JsonProperty("longitude")]
         public string Longitude { get; set; }
     }

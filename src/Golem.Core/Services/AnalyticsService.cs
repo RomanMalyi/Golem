@@ -1,11 +1,11 @@
 ﻿using System;
-
 using System.Threading.Tasks;
 using Golem.Core.Managers;
 using Golem.Core.Models.Dto.Responses;
 using Golem.Data.PostgreSql.Models;
 using Golem.Data.PostgreSql.Repositories;
 using Microsoft.AspNetCore.Http;
+using UAParser;
 
 namespace Golem.Core.Services
 {
@@ -29,12 +29,17 @@ namespace Golem.Core.Services
 
         public async Task<DashboardOverviewResponse> GetDashboardOverview()
         {
-            return new DashboardOverviewResponse()
+            var result = new DashboardOverviewResponse()
             {
-                AverageNumberOfRequests = await userRepository.GetAverageNumberOfRequests(),
                 NumberOfRequests = await queryRepository.GetCount(),
                 NumberOfUsers = await userRepository.GetCount(),
             };
+            if (result.NumberOfRequests > 0 && result.NumberOfUsers > 0)
+            {
+                result.AverageNumberOfRequests = await userRepository.GetAverageNumberOfRequests();
+            }
+
+            return result;
         }
 
         public async Task<Guid> SaveRequest(string cookie, HttpContext context)
@@ -69,15 +74,21 @@ namespace Golem.Core.Services
 
         private async Task<User> CreateUser(Guid? userId, HttpContext context)
         {
-            var response = await locationManager.GetLocation(context.Connection.RemoteIpAddress.ToString());
+            var userAgent = context.Request.Headers["User-Agent"].ToString();
+            var uaParser = Parser.GetDefault();
+            var clientInfo = uaParser.Parse(userAgent);
+
+            var location = await locationManager.GetLocation(context.Connection.RemoteIpAddress.ToString());
             var user = new User
             {
-                Country = response.CountryName,
-                Region = response.RegionName,
-                City = response.City,
+                Country = location.CountryName,
+                Region = location.RegionName,
+                City = location.City,
                 FirstVisitTime = DateTimeOffset.Now,
                 LastVisitTime = DateTimeOffset.Now,
-                UserAgent = context.Request.Headers["User-Agent"].ToString()
+                UserAgent = clientInfo.UA.ToString(),
+                Device = clientInfo.Device.ToString(),
+                OperatingSystem = clientInfo.OS.ToString()
             };
 
             if (userId.HasValue)
