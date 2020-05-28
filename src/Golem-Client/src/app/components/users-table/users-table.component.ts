@@ -23,6 +23,7 @@ export class UsersTableComponent implements OnInit {
   public users: UserModel[];
   public currentUser: UserModel;
   public showQueries = false;
+  public showSessions = false;
 
   constructor(private httpService: HttpService) {}
 
@@ -33,10 +34,15 @@ export class UsersTableComponent implements OnInit {
   public showUser(user: UserModel) {
     this.currentUser = user;
     this.showQueries = false;
+    this.showSessions = false;
   }
 
   public toggleQueries() {
     this.showQueries = !this.showQueries;
+  }
+
+  public toggleSessions() {
+    this.showSessions = !this.showSessions;
   }
 
   public getPagingUserData(event) {

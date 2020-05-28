@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Golem.Core.Models;
+using Golem.Core.Models.Dto.Requests;
 using Golem.Core.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 

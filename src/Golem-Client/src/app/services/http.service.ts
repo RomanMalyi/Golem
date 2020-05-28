@@ -55,6 +55,21 @@ export class HttpService {
     );
   }
 
+  public getSessions(
+    userId: string,
+    skip: number,
+    take: number
+  ): Observable<any> {
+    const params = new HttpParams()
+      .append('skip', skip.toString())
+      .append('take', take.toString());
+
+    return this.http.get<any>(
+      `${this.apiUrl}analytics/users/${userId}/sessions`,
+      { params, withCredentials: true }
+    );
+  }
+
   public getDashboardOverview(): Observable<DashboardOverview> {
     return this.http.get<any>(`${this.apiUrl}analytics/dashboard-overview`, {
       withCredentials: true,

@@ -5,12 +5,12 @@
         <ng-container matColumnDef="position">
           <th mat-header-cell *matHeaderCellDef>No.</th>
           <td mat-cell *matCellDef="let element">
-            {{ users.indexOf(element) + 1 }}
+            {{skip + users.indexOf(element) + 1 }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="numberOfVisits">
-          <th mat-header-cell *matHeaderCellDef>Visits</th>
+          <th mat-header-cell *matHeaderCellDef>Sessions</th>
           <td mat-cell *matCellDef="let element">
             {{ element.numberOfVisits }}
           </td>
@@ -77,6 +77,10 @@
           <span *ngIf="!showQueries">Show queris</span>
           <span *ngIf="showQueries">Hide queris</span>
         </button>
+        <button (click)="toggleSessions()" mat-raised-button color="primary">
+          <span *ngIf="!showSessions">Show sessions</span>
+          <span *ngIf="showSessions">Hide sessions</span>
+        </button>
       </mat-card-actions>
     </mat-card>
   </div>
@@ -85,3 +89,8 @@
   *ngIf="currentUser !== undefined && showQueries"
   userId="{{ currentUser.id }}"
 ></app-queries-table>
+<app-sessions-table
+*ngIf="currentUser !== undefined && showSessions"
+userId="{{ currentUser.id }}"
+>
+</app-sessions-table>

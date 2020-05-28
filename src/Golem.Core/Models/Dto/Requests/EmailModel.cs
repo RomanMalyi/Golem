@@ -1,4 +1,4 @@
-﻿namespace Golem.Core.Models
+﻿namespace Golem.Core.Models.Dto.Requests
 {
     public class EmailModel
     {

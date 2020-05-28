@@ -18,17 +18,20 @@ namespace Golem.Api.Controllers
         private readonly AnalyticsService analyticsService;
         private readonly UserRepository userRepository;
         private readonly QueryRepository queryRepository;
+        private readonly SessionRepository sessionRepository;
         private readonly IMapper mapper;
 
         public AnalyticsController(UserRepository userRepository,
             QueryRepository queryRepository,
             IMapper mapper,
-            AnalyticsService analyticsService)
+            AnalyticsService analyticsService,
+            SessionRepository sessionRepository)
         {
             this.userRepository = userRepository;
             this.queryRepository = queryRepository;
             this.mapper = mapper;
             this.analyticsService = analyticsService;
+            this.sessionRepository = sessionRepository;
         }
 
         /// <summary>
@@ -64,6 +67,25 @@ namespace Golem.Api.Controllers
             {
                 queries = mapper.Map<IEnumerable<Query>, IEnumerable<QueryResponse>>(queries),
                 totalCount = await queryRepository.GetCount(userId)
+            };
+            return Ok(result);
+        }
+        
+        /// <summary>
+        ///     Returns users' sessions
+        /// </summary>
+        [HttpGet("users/{userId:guid}/sessions")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetUserSessions(
+            [FromRoute] Guid userId,
+            [FromQuery] int take = 20,
+            [FromQuery] int skip = 0)
+        {
+            var sessions = await sessionRepository.GetByUserId(userId, skip, take);
+            var result = new
+            {
+                sessions = mapper.Map<IEnumerable<Session>, IEnumerable<SessionResponse>>(sessions),
+                totalCount = await sessionRepository.GetCount(userId)
             };
             return Ok(result);
         }

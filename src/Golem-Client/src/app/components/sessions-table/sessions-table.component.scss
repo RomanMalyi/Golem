@@ -1,0 +1,23 @@
+.queries-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  h2 {
+    text-align: center;
+    width: 100%;
+  }
+
+  .mat-column-position {
+    width: 50px;
+  }
+
+  .mat-column-startTime {
+    width: 450px;
+  }
+
+  .mat-column-endTime {
+    width: 450px;
+  }
+
+}

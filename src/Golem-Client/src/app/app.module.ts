@@ -24,6 +24,7 @@ import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { QueriesTableComponent } from './components/queries-table/queries-table.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SessionsTableComponent } from './components/sessions-table/sessions-table.component';
 
 
 
@@ -38,7 +39,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AnalyticsComponent,
     UsersTableComponent,
     QueriesTableComponent,
-    DashboardComponent
+    DashboardComponent,
+    SessionsTableComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@ namespace Golem.Core
         {
             CreateMap<User, UserResponse>();
             CreateMap<Query, QueryResponse>();
+
+            CreateMap<Session, SessionResponse>();
         }
     }
 }

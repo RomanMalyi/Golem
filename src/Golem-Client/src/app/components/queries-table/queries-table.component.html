@@ -5,8 +5,13 @@
       <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef>No.</th>
         <td mat-cell *matCellDef="let element">
-          {{ queries.indexOf(element) + 1 }}
+          {{skip + queries.indexOf(element) + 1 }}
         </td>
+      </ng-container>
+
+      <ng-container matColumnDef="path">
+        <th mat-header-cell *matHeaderCellDef>Path</th>
+        <td mat-cell *matCellDef="let element">{{ element.path }}</td>
       </ng-container>
 
       <ng-container matColumnDef="queryString">

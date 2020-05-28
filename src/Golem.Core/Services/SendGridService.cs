@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using Golem.Core.Models;
+using Golem.Core.Models.Dto.Requests;
 using Golem.Core.Models.Settings;
 using Golem.Core.Services.Abstractions;
 using SendGrid;

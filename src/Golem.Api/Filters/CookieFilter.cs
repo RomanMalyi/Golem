@@ -1,58 +1,36 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Golem.Data.PostgreSql.Models;
-using Golem.Data.PostgreSql.Repositories;
+using Golem.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Golem.Api.Filters
 {
     public class CookieFilter : IAsyncActionFilter
     {
+        private static readonly string[] ExcludedPathsFromAnalytics = {"analytics"};
         private const string CookieKey = "session-id";
-        private readonly QueryRepository queryRepository;
-        private readonly UserRepository userRepository;
+        private readonly AnalyticsService analyticsService;
 
-        public CookieFilter(QueryRepository queryRepository,
-            UserRepository userRepository)
+        public CookieFilter(AnalyticsService analyticsService)
         {
-            this.queryRepository = queryRepository;
-            this.userRepository = userRepository;
+            this.analyticsService = analyticsService;
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             try
             {
-                User user;
                 var cookie = GetCookie(CookieKey, context.HttpContext.Request);
-
-                var query = new Query()
+                if (!IsPathExcludedFromAnalytics(context.HttpContext))
                 {
-                    CreationDate = DateTimeOffset.Now,
-                    IpAddress = context.HttpContext.Connection.RemoteIpAddress.ToString(),
-                    Path = context.HttpContext.Request.Path,
-                    UserAgent = context.HttpContext.Request.Headers["User-Agent"].ToString(),
-                    MethodType = context.HttpContext.Request.Method,
-                    QueryString = context.HttpContext.Request.QueryString.Value
-                };
-
-                if (cookie == null)
-                {
-                    user = await CreateUser(null, context.HttpContext);
-                    SetCookie(CookieKey, user.Id.ToString(), 200, context.HttpContext.Response);
+                    var userId = await analyticsService.SaveRequest(cookie, context.HttpContext);
+                    if (cookie == null)
+                    {
+                        SetCookie(CookieKey, userId.ToString(), 200, context.HttpContext.Response);
+                    }
                 }
-                else
-                {
-                    user = await userRepository.GetById(Guid.Parse(cookie)) ??
-                           await CreateUser(Guid.Parse(cookie), context.HttpContext);
-                    user.NumberOfVisits++;
-                    await userRepository.Update(user);
-                }
-
-                query.UserId = user.Id;
-                await queryRepository.Create(query);
             }
             catch (Exception e)
             {
@@ -64,22 +42,9 @@ namespace Golem.Api.Filters
             }
         }
 
-        private async Task<User> CreateUser(Guid? userId, HttpContext context)
+        private static bool IsPathExcludedFromAnalytics(HttpContext context)
         {
-            //TODO: add country
-            var user = new User()
-            {
-                Country = "Ukraine",
-                FirstVisitTime = DateTimeOffset.Now,
-                LastVisitTime = DateTimeOffset.Now,
-                UserAgent = context.Request.Headers["User-Agent"].ToString()
-            };
-
-            if (userId.HasValue)
-                user.Id = userId.Value;
-
-            await userRepository.Create(user);
-            return user;
+            return ExcludedPathsFromAnalytics.Any(path => context.Request.Path.ToString().Contains(path));
         }
 
         private static void SetCookie(string key, string value, int? expireTimeDays, HttpResponse response)

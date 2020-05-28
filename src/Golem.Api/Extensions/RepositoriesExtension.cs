@@ -9,6 +9,7 @@ namespace Golem.Api.Extensions
         {
             services.AddScoped<UserRepository>();
             services.AddScoped<QueryRepository>();
+            services.AddScoped<SessionRepository>();
         }
 
     }

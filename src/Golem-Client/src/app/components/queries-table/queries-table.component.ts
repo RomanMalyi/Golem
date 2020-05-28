@@ -15,7 +15,7 @@ export class QueriesTableComponent implements OnInit {
   public totalQueriesCount = 0;
 
   @Input() public userId: string;
-  public displayedColumns: string[] = ['position', 'queryString', 'methodType', 'creationDate'];
+  public displayedColumns: string[] = ['position', 'path', 'queryString', 'methodType', 'creationDate'];
   public queries: QueryModel[];
 
   constructor(private httpService: HttpService) { }
