@@ -55,12 +55,14 @@
   <div *ngIf="currentUser" class="user-info-container">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Information</mat-card-title>
+        <mat-card-title>Visitor profile</mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <p>Id: {{ currentUser.id }}</p>
         <p>Country: {{ currentUser.country }}</p>
+        <p>Region: {{ currentUser.region }}</p>
+        <p>City: {{ currentUser.city }}</p>
         <p>User agent: {{ currentUser.userAgent }}</p>
         <p>Number of visits: {{ currentUser.numberOfVisits }}</p>
         <p>

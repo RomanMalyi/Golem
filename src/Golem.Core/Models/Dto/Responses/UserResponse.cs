@@ -15,6 +15,10 @@ namespace Golem.Core.Models.Dto.Responses
         public DateTimeOffset FirstVisitTime { get; set; }
 
         public string Country { get; set; }
+        
+        public string Region { get; set; }
+        
+        public string City { get; set; }
 
         public string UserAgent { get; set; }
     }

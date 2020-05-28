@@ -5,5 +5,7 @@ export class UserModel {
   lastVisitTime: Date;
   firstVisitTime: Date;
   country: string;
+  region: string;
+  city: string;
   userAgent: string;
 }

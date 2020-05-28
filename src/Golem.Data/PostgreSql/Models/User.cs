@@ -22,6 +22,10 @@ namespace Golem.Data.PostgreSql.Models
 
         public string Country { get; set; }
 
+        public string Region { get; set; }
+        
+        public string City { get; set; }
+
         public string UserAgent { get; set; }
         
         public ICollection<Query> Queries { get; set; }

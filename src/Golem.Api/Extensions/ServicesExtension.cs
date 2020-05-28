@@ -1,4 +1,5 @@
-﻿using Golem.Core.Services;
+﻿using Golem.Core.Managers;
+using Golem.Core.Services;
 using Golem.Core.Services.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ namespace Golem.Api.Extensions
         {
             services.AddTransient<IEmailService, SendGridService>();
             services.AddTransient<AnalyticsService>();
+            services.AddTransient<LocationManager>();
         }
     }
 }

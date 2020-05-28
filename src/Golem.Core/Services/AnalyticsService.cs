@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Text.Encodings.Web;
+
 using System.Threading.Tasks;
+using Golem.Core.Managers;
 using Golem.Core.Models.Dto.Responses;
 using Golem.Data.PostgreSql.Models;
 using Golem.Data.PostgreSql.Repositories;
@@ -13,14 +14,17 @@ namespace Golem.Core.Services
         private readonly UserRepository userRepository;
         private readonly QueryRepository queryRepository;
         private readonly SessionRepository sessionRepository;
+        private readonly LocationManager locationManager;
 
         public AnalyticsService(UserRepository userRepository,
             QueryRepository queryRepository,
-            SessionRepository sessionRepository)
+            SessionRepository sessionRepository,
+            LocationManager locationManager)
         {
             this.userRepository = userRepository;
             this.queryRepository = queryRepository;
             this.sessionRepository = sessionRepository;
+            this.locationManager = locationManager;
         }
 
         public async Task<DashboardOverviewResponse> GetDashboardOverview()
@@ -65,10 +69,12 @@ namespace Golem.Core.Services
 
         private async Task<User> CreateUser(Guid? userId, HttpContext context)
         {
-            //TODO: add country
-            var user = new User()
+            var response = await locationManager.GetLocation(context.Connection.RemoteIpAddress.ToString());
+            var user = new User
             {
-                Country = "Ukraine",
+                Country = response.CountryName,
+                Region = response.RegionName,
+                City = response.City,
                 FirstVisitTime = DateTimeOffset.Now,
                 LastVisitTime = DateTimeOffset.Now,
                 UserAgent = context.Request.Headers["User-Agent"].ToString()
