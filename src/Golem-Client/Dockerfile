@@ -13,7 +13,7 @@ ENV PATH="./node_modules/.bin:$PATH"
 
 COPY . ./
 WORKDIR "/opt/ng/Golem-Client/"
-RUN ng build --prod
+RUN ng build
 
 FROM nginx
 COPY --from=compile-image /opt/ng/Golem-Client/dist/Golem-Client /usr/share/nginx/html/
