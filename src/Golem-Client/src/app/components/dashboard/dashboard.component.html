@@ -1,7 +1,78 @@
-<mat-card *ngIf="overviewData">
-  <mat-card-content>
-    <span>Total users: {{overviewData.numberOfUsers}}</span>
-    <span>Total requests: {{overviewData.numberOfRequests}}</span>
-    <span>Average number of requests: {{overviewData.averageNumberOfRequests | number : '1.1-1'}}</span>
-  </mat-card-content>
-</mat-card>
+<div class="info-container" *ngIf="overviewData">
+  <span class="users info-card">
+    <span class="number-container">
+      <p class="number">
+        {{ overviewData.numberOfUsers }}
+      </p>
+      <span class="material-icons">
+        group
+      </span>
+    </span>
+    <p>
+      Users
+    </p>
+  </span>
+  <span class="sessions info-card">
+    <span class="number-container">
+      <p class="number">
+        {{ overviewData.numberOfSessions }}
+      </p>
+      <span class="material-icons">
+        watch_later
+      </span>
+    </span>
+    <p>
+      Sessions
+    </p>
+  </span>
+  <span class="average-session-duration info-card">
+    <span class="number-container">
+      <p class="number">
+        {{ overviewData.averageSessionDuration | number: "1.1-1" }}min
+      </p>
+      <span class="material-icons">
+        timer
+      </span>
+    </span>
+    <p>
+      AVG Session Duration
+    </p>
+  </span>
+  <span class="requests info-card">
+    <span class="number-container">
+      <p class="number">
+        {{ overviewData.numberOfRequests }}
+      </p>
+      <span class="material-icons">
+        arrow_circle_down
+      </span>
+    </span>
+    <p>
+      Requests
+    </p>
+  </span>
+  <span class="average-requests info-card">
+    <span class="number-container">
+      <p class="number">
+        {{ overviewData.averageNumberOfRequests | number: "1.1-1" }}
+      </p>
+      <span class="material-icons">
+        functions
+      </span>
+    </span>
+    <p>
+      AVG Requests
+    </p>
+  </span>
+  <span class="bounce-rate info-card">
+    <span class="number-container">
+      <p class="number">{{ overviewData.bounceRate | number: "1.1-1" }}%</p>
+      <span class="material-icons">
+        notification_important
+      </span>
+    </span>
+    <p>
+      Bounce Rate
+    </p>
+  </span>
+</div>

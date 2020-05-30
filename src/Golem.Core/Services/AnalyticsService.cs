@@ -33,11 +33,16 @@ namespace Golem.Core.Services
             {
                 NumberOfRequests = await queryRepository.GetCount(),
                 NumberOfUsers = await userRepository.GetCount(null, null),
+                NumberOfSessions = await sessionRepository.GetCount()
             };
             if (result.NumberOfRequests > 0 && result.NumberOfUsers > 0)
-            {
                 result.AverageNumberOfRequests = await userRepository.GetAverageNumberOfRequests();
-            }
+
+            if (result.NumberOfUsers <= 0) return result;
+            
+            var bounceUsers = await userRepository.GetUserWithOneRequestCount();
+            result.BounceRate = bounceUsers / result.NumberOfUsers * 100;
+            result.AverageSessionDuration = await sessionRepository.GetAverageSessionDuration();
 
             return result;
         }

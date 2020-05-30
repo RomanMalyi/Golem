@@ -61,6 +61,15 @@ namespace Golem.Data.PostgreSql.Repositories
             await dbContext.SaveChangesAsync();
         }
 
+        public async Task<double> GetAverageSessionDuration()
+        {
+            //TODO: Calculate by small portioning in service
+            var sessions = await dbContext.Sessions
+                .Select(s => s.EndTime - s.StartTime)
+                .ToListAsync();
+            return sessions.Average(s => s.TotalMinutes);
+        }
+
         public async Task<int> GetCount()
         {
             return await dbContext.Sessions.CountAsync();

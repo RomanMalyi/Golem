@@ -87,7 +87,7 @@
   <div *ngIf="currentUser" class="user-info-container">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Visitor profile</mat-card-title>
+        <mat-card-title class="card-title">Visitor profile</mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
@@ -108,7 +108,7 @@
         </p>
         <p>Number of requests: {{ currentUser.numberOfRequests }}</p>
       </mat-card-content>
-      <mat-card-actions>
+      <mat-card-actions class="actions">
         <button (click)="toggleQueries()" mat-raised-button color="primary">
           <span *ngIf="!showQueries">Show queris</span>
           <span *ngIf="showQueries">Hide queris</span>

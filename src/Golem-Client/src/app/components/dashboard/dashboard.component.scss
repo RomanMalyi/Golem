@@ -1,12 +1,50 @@
 @import "../../../styles/colors.scss";
 
-span {
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.info-card {
   display: inline-block;
   border-radius: 5px;
-  min-width: 250px;
-  min-height: 30px;
-  border-style: solid;
-  border-color: $golem-primary;
+  width: 150px;
+  height: 50px;
   padding: 10px;
   margin: 10px;
+  .number-container {
+    display: flex;
+    justify-content: space-between;
+    color: whitesmoke;
+    .number {
+      font-weight: 500;
+      font-size: 25px;
+    }
+  }
+  p {
+    color: whitesmoke;
+    padding: 2px;
+    margin: 0;
+    font-size: small;
+  }
+}
+
+.users {
+  background-color: #1160ad;
+}
+.sessions {
+  background-color: #199f86;
+}
+.requests {
+  background-color: #94b856;
+}
+.average-requests {
+  background-color: #f49c07;
+}
+.bounce-rate {
+  background-color: #EF4B4C;
+}
+.average-session-duration {
+  background-color: #7f7f7f;
 }

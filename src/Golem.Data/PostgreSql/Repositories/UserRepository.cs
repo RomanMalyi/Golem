@@ -68,6 +68,13 @@ namespace Golem.Data.PostgreSql.Repositories
             return await result.CountAsync();
         }
 
+        public async Task<int> GetUserWithOneRequestCount()
+        {
+            return await dbContext.Users
+                .Where(user => user.NumberOfRequests == 1)
+                .CountAsync();
+        }
+
         private static IQueryable<User> ApplyFiltering(DateTime? lastVisitDateFrom, DateTime? lastVisitDateTo,
             IQueryable<User> result)
         {
