@@ -16,10 +16,16 @@ namespace Golem.Data.PostgreSql.Repositories
             dbContext = context;
         }
 
-        public async Task<IEnumerable<User>> Get(int skip, int take)
+        public async Task<IEnumerable<User>> Get(DateTime? lastVisitDateFrom, DateTime? lastVisitDateTo, int skip,
+            int take)
         {
-            return await dbContext.Users
-                .OrderByDescending(u => u.NumberOfVisits)
+            var result =
+                dbContext.Users
+                    .OrderByDescending(u => u.NumberOfVisits)
+                    .AsQueryable();
+            result = ApplyFiltering(lastVisitDateFrom, lastVisitDateTo, result);
+
+            return await result
                 .Skip(skip)
                 .Take(take)
                 .ToListAsync();
@@ -55,9 +61,25 @@ namespace Golem.Data.PostgreSql.Repositories
                 .AverageAsync();
         }
 
-        public async Task<int> GetCount()
+        public async Task<int> GetCount(DateTime? lastVisitDateFrom, DateTime? lastVisitDateTo)
         {
-            return await dbContext.Users.CountAsync();
+            var result = dbContext.Users.AsQueryable();
+            result = ApplyFiltering(lastVisitDateFrom, lastVisitDateTo, result);
+            return await result.CountAsync();
+        }
+
+        private static IQueryable<User> ApplyFiltering(DateTime? lastVisitDateFrom, DateTime? lastVisitDateTo,
+            IQueryable<User> result)
+        {
+            if (lastVisitDateFrom.HasValue)
+                result = result
+                    .Where(user => user.LastVisitTime >= lastVisitDateFrom.Value);
+
+            if (lastVisitDateTo.HasValue)
+                result = result
+                    .Where(user => user.LastVisitTime <= lastVisitDateTo.Value);
+
+            return result;
         }
     }
 }

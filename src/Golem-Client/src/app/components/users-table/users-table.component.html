@@ -1,11 +1,42 @@
 <div class="main-container">
   <div class="users-list-container">
+    <div class="filtering-container">
+      <p>Last visit:</p>
+      <mat-form-field class="picker">
+        <mat-label>From</mat-label>
+        <input
+          [(ngModel)]="dateFrom"
+          (dateChange)="dateChange()"
+          matInput
+          [matDatepicker]="startPicker"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="picker">
+        <mat-label>To</mat-label>
+        <input
+          [(ngModel)]="dateTo"
+          (dateChange)="dateChange()"
+          matInput
+          [matDatepicker]="endPicker"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="users" class="mat-elevation-z8">
         <ng-container matColumnDef="position">
           <th mat-header-cell *matHeaderCellDef>No.</th>
           <td mat-cell *matCellDef="let element">
-            {{skip + users.indexOf(element) + 1 }}
+            {{ skip + users.indexOf(element) + 1 }}
           </td>
         </ng-container>
 
@@ -46,7 +77,8 @@
       <mat-paginator
         [pageSizeOptions]="[5, 10, 20]"
         showFirstLastButtons
-        [length]="totalUsersCount" [pageSize]="paginatorPageSize"
+        [length]="totalUsersCount"
+        [pageSize]="paginatorPageSize"
         (page)="getPagingUserData($event)"
       ></mat-paginator>
     </div>
@@ -94,7 +126,7 @@
   userId="{{ currentUser.id }}"
 ></app-queries-table>
 <app-sessions-table
-*ngIf="currentUser !== undefined && showSessions"
-userId="{{ currentUser.id }}"
+  *ngIf="currentUser !== undefined && showSessions"
+  userId="{{ currentUser.id }}"
 >
 </app-sessions-table>

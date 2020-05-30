@@ -20,7 +20,7 @@ namespace Golem.Data.PostgreSql.Repositories
         {
             return await dbContext.Sessions.FindAsync(id);
         }
-        
+
         public async Task<Session> GetLast(Guid userid)
         {
             return await dbContext.Sessions
@@ -29,11 +29,15 @@ namespace Golem.Data.PostgreSql.Repositories
                 .FirstAsync();
         }
 
-        public async Task<IEnumerable<Session>> GetByUserId(Guid userid, int skip, int take)
+        public async Task<IEnumerable<Session>> GetByUserId(Guid userid, DateTime? startDateFrom, DateTime? startDateTo,
+            int skip, int take)
         {
-            return await dbContext.Sessions
+            var result = dbContext.Sessions
                 .OrderBy(q => q.EndTime)
-                .Where(q => q.UserId == userid)
+                .Where(q => q.UserId == userid);
+            result = ApplyFiltering(startDateFrom, startDateTo, result);
+
+            return await result
                 .Skip(skip)
                 .Take(take)
                 .ToListAsync();
@@ -62,11 +66,28 @@ namespace Golem.Data.PostgreSql.Repositories
             return await dbContext.Sessions.CountAsync();
         }
 
-        public async Task<int> GetCount(Guid userId)
+        public async Task<int> GetCount(Guid userId, DateTime? startDateFrom,
+            DateTime? startDateTo)
         {
-            return await dbContext.Sessions
-                .Where(q => q.UserId == userId)
-                .CountAsync();
+            var result = dbContext.Sessions
+                .Where(q => q.UserId == userId);
+            result = ApplyFiltering(startDateFrom, startDateTo, result);
+
+            return await result.CountAsync();
+        }
+
+        private static IQueryable<Session> ApplyFiltering(DateTime? startDateFrom,
+            DateTime? startDateTo, IQueryable<Session> result)
+        {
+            if (startDateFrom.HasValue)
+                result = result
+                    .Where(user => user.StartTime >= startDateFrom.Value);
+
+            if (startDateTo.HasValue)
+                result = result
+                    .Where(user => user.StartTime <= startDateTo.Value);
+
+            return result;
         }
     }
 }

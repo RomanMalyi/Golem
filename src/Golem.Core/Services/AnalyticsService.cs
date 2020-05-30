@@ -32,7 +32,7 @@ namespace Golem.Core.Services
             var result = new DashboardOverviewResponse()
             {
                 NumberOfRequests = await queryRepository.GetCount(),
-                NumberOfUsers = await userRepository.GetCount(),
+                NumberOfUsers = await userRepository.GetCount(null, null),
             };
             if (result.NumberOfRequests > 0 && result.NumberOfUsers > 0)
             {

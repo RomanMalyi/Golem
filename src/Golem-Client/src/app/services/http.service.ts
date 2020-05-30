@@ -29,10 +29,21 @@ export class HttpService {
     });
   }
 
-  public getUsers(skip: number, take: number): Observable<any> {
-    const params = new HttpParams()
+  public getUsers(
+    skip: number,
+    dateFrom: Date,
+    dateTo: Date,
+    take: number
+  ): Observable<any> {
+    let params = new HttpParams()
       .append('skip', skip.toString())
       .append('take', take.toString());
+    if (dateFrom !== undefined) {
+      params = params.append('lastVisitDateFrom', dateFrom.toISOString());
+    }
+    if (dateTo !== undefined) {
+      params = params.append('lastVisitDateTo', dateTo.toISOString());
+    }
 
     return this.http.get<any>(`${this.apiUrl}analytics/users`, {
       params,
@@ -42,12 +53,23 @@ export class HttpService {
 
   public getQueries(
     userId: string,
+    dateFrom: Date,
+    dateTo: Date,
+    showEmpty: boolean,
     skip: number,
     take: number
   ): Observable<any> {
-    const params = new HttpParams()
+    let params = new HttpParams()
+      .append('showEmpty', showEmpty.toString())
       .append('skip', skip.toString())
       .append('take', take.toString());
+
+    if (dateFrom) {
+      params = params.append('creationDateFrom', dateFrom.toISOString());
+    }
+    if (dateTo) {
+      params = params.append('creationDateTo', dateTo.toISOString());
+    }
 
     return this.http.get<any>(
       `${this.apiUrl}analytics/users/${userId}/queries`,
@@ -57,12 +79,21 @@ export class HttpService {
 
   public getSessions(
     userId: string,
+    dateFrom: Date,
+    dateTo: Date,
     skip: number,
     take: number
   ): Observable<any> {
-    const params = new HttpParams()
+    let params = new HttpParams()
       .append('skip', skip.toString())
       .append('take', take.toString());
+
+    if (dateFrom) {
+      params = params.append('startDateFrom', dateFrom.toISOString());
+    }
+    if (dateTo) {
+      params = params.append('startDateTo', dateTo.toISOString());
+    }
 
     return this.http.get<any>(
       `${this.apiUrl}analytics/users/${userId}/sessions`,

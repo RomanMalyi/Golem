@@ -21,11 +21,15 @@ namespace Golem.Data.PostgreSql.Repositories
             return await dbContext.Queries.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Query>> GetByUserId(Guid userid, int skip, int take)
+        public async Task<IEnumerable<Query>> GetByUserId(Guid userid, DateTime? creationDateFrom,
+            DateTime? creationDateTo, bool showEmpty, int skip, int take)
         {
-            return await dbContext.Queries
-                .OrderBy(q => q.CreationDate)
-                .Where(q => q.UserId == userid)
+            var result = dbContext.Queries
+                .OrderByDescending(q => q.CreationDate)
+                .Where(q => q.UserId == userid);
+            result = ApplyFiltering(creationDateFrom, creationDateTo, showEmpty, result);
+
+            return await result
                 .Skip(skip)
                 .Take(take)
                 .ToListAsync();
@@ -54,11 +58,32 @@ namespace Golem.Data.PostgreSql.Repositories
             return await dbContext.Queries.CountAsync();
         }
 
-        public async Task<int> GetCount(Guid userId)
+        public async Task<int> GetCount(Guid userId, DateTime? creationDateFrom,
+            DateTime? creationDateTo, bool showEmpty)
         {
-            return await dbContext.Queries
-                .Where(q => q.UserId == userId)
-                .CountAsync();
+            var result = dbContext.Queries
+                .Where(q => q.UserId == userId);
+            result = ApplyFiltering(creationDateFrom, creationDateTo, showEmpty, result);
+            
+            return await result.CountAsync();
+        }
+
+        private static IQueryable<Query> ApplyFiltering(DateTime? creationDateFrom,
+            DateTime? creationDateTo, bool showEmpty, IQueryable<Query> result)
+        {
+            if (!showEmpty)
+                result = result
+                    .Where(query => query.QueryString != "" && query.QueryString != "searchTerm=");
+
+            if (creationDateFrom.HasValue)
+                result = result
+                    .Where(query => query.CreationDate >= creationDateFrom.Value);
+
+            if (creationDateTo.HasValue)
+                result = result
+                    .Where(query => query.CreationDate <= creationDateTo.Value);
+
+            return result;
         }
     }
 }

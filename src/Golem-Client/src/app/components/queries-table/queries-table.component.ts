@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-queries-table',
   templateUrl: './queries-table.component.html',
-  styleUrls: ['./queries-table.component.scss']
+  styleUrls: ['./queries-table.component.scss'],
 })
 export class QueriesTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -15,10 +15,20 @@ export class QueriesTableComponent implements OnInit {
   public totalQueriesCount = 0;
 
   @Input() public userId: string;
-  public displayedColumns: string[] = ['position', 'path', 'queryString', 'methodType', 'creationDate'];
+  public displayedColumns: string[] = [
+    'position',
+    'path',
+    'queryString',
+    'methodType',
+    'creationDate',
+  ];
   public queries: QueryModel[];
 
-  constructor(private httpService: HttpService) { }
+  public dateFrom: Date;
+  public dateTo: Date;
+  public showEmpty = true;
+
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.loadQueries();
@@ -31,15 +41,28 @@ export class QueriesTableComponent implements OnInit {
     this.loadQueries();
   }
 
+  public filterChange() {
+    this.loadQueries();
+  }
+
   private loadQueries() {
-    this.httpService.getQueries(this.userId, this.skip, this.paginatorPageSize).subscribe(
-      (res) => {
-        this.queries = res.queries;
-        this.totalQueriesCount = res.totalCount;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.httpService
+      .getQueries(
+        this.userId,
+        this.dateFrom,
+        this.dateTo,
+        this.showEmpty,
+        this.skip,
+        this.paginatorPageSize
+      )
+      .subscribe(
+        (res) => {
+          this.queries = res.queries;
+          this.totalQueriesCount = res.totalCount;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 }

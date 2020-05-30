@@ -25,6 +25,9 @@ export class UsersTableComponent implements OnInit {
   public showQueries = false;
   public showSessions = false;
 
+  public dateFrom: Date;
+  public dateTo: Date;
+
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
@@ -52,19 +55,25 @@ export class UsersTableComponent implements OnInit {
     this.loadUsers();
   }
 
+  public dateChange() {
+    this.loadUsers();
+  }
+
   private loadUsers() {
-    this.httpService.getUsers(this.skip, this.paginatorPageSize).subscribe(
-      (res) => {
-        this.users = res.users;
-        this.totalUsersCount = res.totalCount;
-        if (this.users) {
-          this.currentUser = this.users[0];
-          this.showQueries = false;
+    this.httpService
+      .getUsers(this.skip, this.dateFrom, this.dateTo, this.paginatorPageSize)
+      .subscribe(
+        (res) => {
+          this.users = res.users;
+          this.totalUsersCount = res.totalCount;
+          if (this.users) {
+            this.currentUser = this.users[0];
+            this.showQueries = false;
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      );
   }
 }

@@ -40,14 +40,16 @@ namespace Golem.Api.Controllers
         [HttpGet("users")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUsers(
+            [FromQuery] DateTime? lastVisitDateFrom,
+            [FromQuery] DateTime? lastVisitDateTo,
             [FromQuery] int take = 20,
             [FromQuery] int skip = 0)
         {
-            var users = await userRepository.Get(skip, take);
+            var users = await userRepository.Get(lastVisitDateFrom, lastVisitDateTo, skip, take);
             var result = new
             {
                 users = mapper.Map<IEnumerable<User>, IEnumerable<UserResponse>>(users),
-                totalCount = await userRepository.GetCount()
+                totalCount = await userRepository.GetCount(lastVisitDateFrom, lastVisitDateTo)
             };
             return Ok(result);
         }
@@ -59,18 +61,22 @@ namespace Golem.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUserQueries(
             [FromRoute] Guid userId,
+            [FromQuery] DateTime? creationDateFrom,
+            [FromQuery] DateTime? creationDateTo,
+            [FromQuery] bool showEmpty,
             [FromQuery] int take = 20,
             [FromQuery] int skip = 0)
         {
-            var queries = await queryRepository.GetByUserId(userId, skip, take);
+            var queries =
+                await queryRepository.GetByUserId(userId, creationDateFrom, creationDateTo, showEmpty, skip, take);
             var result = new
             {
                 queries = mapper.Map<IEnumerable<Query>, IEnumerable<QueryResponse>>(queries),
-                totalCount = await queryRepository.GetCount(userId)
+                totalCount = await queryRepository.GetCount(userId, creationDateFrom, creationDateTo, showEmpty)
             };
             return Ok(result);
         }
-        
+
         /// <summary>
         ///     Returns users' sessions
         /// </summary>
@@ -78,14 +84,16 @@ namespace Golem.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUserSessions(
             [FromRoute] Guid userId,
+            [FromQuery] DateTime? startDateFrom,
+            [FromQuery] DateTime? startDateTo,
             [FromQuery] int take = 20,
             [FromQuery] int skip = 0)
         {
-            var sessions = await sessionRepository.GetByUserId(userId, skip, take);
+            var sessions = await sessionRepository.GetByUserId(userId, startDateFrom, startDateTo, skip, take);
             var result = new
             {
                 sessions = mapper.Map<IEnumerable<Session>, IEnumerable<SessionResponse>>(sessions),
-                totalCount = await sessionRepository.GetCount(userId)
+                totalCount = await sessionRepository.GetCount(userId, startDateFrom, startDateTo)
             };
             return Ok(result);
         }

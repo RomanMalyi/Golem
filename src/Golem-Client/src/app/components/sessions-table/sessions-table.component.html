@@ -1,5 +1,36 @@
 <div class="queries-container">
   <h2>Sessions</h2>
+  <div class="filtering-container">
+    <p>Start time:</p>
+    <mat-form-field class="picker">
+      <mat-label>From</mat-label>
+      <input
+        [(ngModel)]="dateFrom"
+        (dateChange)="filterChange()"
+        matInput
+        [matDatepicker]="startPicker"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="startPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="picker">
+      <mat-label>To</mat-label>
+      <input
+        [(ngModel)]="dateTo"
+        (dateChange)="filterChange()"
+        matInput
+        [matDatepicker]="endPicker"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="endPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="sessions" class="mat-elevation-z8">
       <ng-container matColumnDef="position">

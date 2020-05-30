@@ -14,6 +14,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './components/app/app.component';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
@@ -25,6 +28,7 @@ import { UsersTableComponent } from './components/users-table/users-table.compon
 import { QueriesTableComponent } from './components/queries-table/queries-table.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SessionsTableComponent } from './components/sessions-table/sessions-table.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -57,6 +61,10 @@ import { SessionsTableComponent } from './components/sessions-table/sessions-tab
     MatTabsModule,
     MatCardModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

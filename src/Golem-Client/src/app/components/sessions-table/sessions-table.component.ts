@@ -6,7 +6,7 @@ import { SessionModel } from 'src/app/models/sessionModel';
 @Component({
   selector: 'app-sessions-table',
   templateUrl: './sessions-table.component.html',
-  styleUrls: ['./sessions-table.component.scss']
+  styleUrls: ['./sessions-table.component.scss'],
 })
 export class SessionsTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -18,7 +18,10 @@ export class SessionsTableComponent implements OnInit {
   public displayedColumns: string[] = ['position', 'startTime', 'endTime'];
   public sessions: SessionModel[];
 
-  constructor(private httpService: HttpService) { }
+  public dateFrom: Date;
+  public dateTo: Date;
+
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.loadSessions();
@@ -31,15 +34,27 @@ export class SessionsTableComponent implements OnInit {
     this.loadSessions();
   }
 
+  public filterChange() {
+    this.loadSessions();
+  }
+
   private loadSessions() {
-    this.httpService.getSessions(this.userId, this.skip, this.paginatorPageSize).subscribe(
-      (res) => {
-        this.sessions = res.sessions;
-        this.totalSessionsCount = res.totalCount;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.httpService
+      .getSessions(
+        this.userId,
+        this.dateFrom,
+        this.dateTo,
+        this.skip,
+        this.paginatorPageSize
+      )
+      .subscribe(
+        (res) => {
+          this.sessions = res.sessions;
+          this.totalSessionsCount = res.totalCount;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 }
