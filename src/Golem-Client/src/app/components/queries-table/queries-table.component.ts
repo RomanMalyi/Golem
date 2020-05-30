@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { QueryModel } from 'src/app/models/queryModel';
 import { HttpService } from 'src/app/services/http.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-queries-table',
@@ -28,7 +29,10 @@ export class QueriesTableComponent implements OnInit {
   public dateTo: Date;
   public showEmpty = true;
 
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private spinnerService: SpinnerService
+  ) {}
 
   ngOnInit(): void {
     this.loadQueries();
@@ -46,6 +50,7 @@ export class QueriesTableComponent implements OnInit {
   }
 
   private loadQueries() {
+    this.spinnerService.showSpinner();
     this.httpService
       .getQueries(
         this.userId,
@@ -59,8 +64,10 @@ export class QueriesTableComponent implements OnInit {
         (res) => {
           this.queries = res.queries;
           this.totalQueriesCount = res.totalCount;
+          this.spinnerService.hideSpinner();
         },
         (error) => {
+          this.spinnerService.hideSpinner();
           console.log(error);
         }
       );

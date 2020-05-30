@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { UserModel } from 'src/app/models/userModel';
 import { MatPaginator } from '@angular/material/paginator';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-users-table',
@@ -28,7 +29,10 @@ export class UsersTableComponent implements OnInit {
   public dateFrom: Date;
   public dateTo: Date;
 
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private spinnerService: SpinnerService
+  ) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -60,6 +64,7 @@ export class UsersTableComponent implements OnInit {
   }
 
   private loadUsers() {
+    this.spinnerService.showSpinner();
     this.httpService
       .getUsers(this.skip, this.dateFrom, this.dateTo, this.paginatorPageSize)
       .subscribe(
@@ -70,8 +75,10 @@ export class UsersTableComponent implements OnInit {
             this.currentUser = this.users[0];
             this.showQueries = false;
           }
+          this.spinnerService.hideSpinner();
         },
         (error) => {
+          this.spinnerService.hideSpinner();
           console.log(error);
         }
       );

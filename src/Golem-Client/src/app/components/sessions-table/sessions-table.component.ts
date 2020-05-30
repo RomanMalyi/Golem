@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { HttpService } from 'src/app/services/http.service';
 import { SessionModel } from 'src/app/models/sessionModel';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-sessions-table',
@@ -21,7 +22,10 @@ export class SessionsTableComponent implements OnInit {
   public dateFrom: Date;
   public dateTo: Date;
 
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private spinnerService: SpinnerService
+  ) {}
 
   ngOnInit(): void {
     this.loadSessions();
@@ -39,6 +43,7 @@ export class SessionsTableComponent implements OnInit {
   }
 
   private loadSessions() {
+    this.spinnerService.showSpinner();
     this.httpService
       .getSessions(
         this.userId,
@@ -51,9 +56,11 @@ export class SessionsTableComponent implements OnInit {
         (res) => {
           this.sessions = res.sessions;
           this.totalSessionsCount = res.totalCount;
+          this.spinnerService.hideSpinner();
         },
         (error) => {
           console.log(error);
+          this.spinnerService.hideSpinner();
         }
       );
   }

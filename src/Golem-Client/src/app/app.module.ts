@@ -17,6 +17,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './components/app/app.component';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
@@ -29,6 +30,7 @@ import { QueriesTableComponent } from './components/queries-table/queries-table.
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SessionsTableComponent } from './components/sessions-table/sessions-table.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SpinnerWrapperComponent } from './components/spinner-wrapper/spinner-wrapper.component';
 
 
 
@@ -44,7 +46,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     UsersTableComponent,
     QueriesTableComponent,
     DashboardComponent,
-    SessionsTableComponent
+    SessionsTableComponent,
+    SpinnerWrapperComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatNativeDateModule,
     MatCheckboxModule,
     FormsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

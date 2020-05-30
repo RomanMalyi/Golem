@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
 import { GetInTouch } from 'src/app/models/getInTouchModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-get-in-touch',
@@ -12,7 +13,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class GetInTouchComponent {
   public getInTouchForm: FormGroup;
 
-  constructor(private httpService: HttpService, private snackBar: MatSnackBar) {
+  constructor(
+    private httpService: HttpService,
+    private snackBar: MatSnackBar,
+    private spinnerService: SpinnerService
+  ) {
     this.getInTouchForm = new FormGroup({
       message: new FormControl('', Validators.required),
       senderEmail: new FormControl('', [Validators.required, Validators.email]),
@@ -27,6 +32,7 @@ export class GetInTouchComponent {
         senderEmail: this.getInTouchForm.value.senderEmail,
         senderFullName: this.getInTouchForm.value.senderFullName,
       };
+      this.spinnerService.showSpinner();
       this.httpService.sendEmail(getIntouchModel).subscribe(
         (result) => {
           this.openSnackBar('Message send!', 'Close');
@@ -35,8 +41,10 @@ export class GetInTouchComponent {
           for (const name in this.getInTouchForm.controls) {
             this.getInTouchForm.controls[name].setErrors(null);
           }
+          this.spinnerService.hideSpinner();
         },
         (error) => {
+          this.spinnerService.hideSpinner();
           this.openSnackBar('Oops! Something went wrong.', 'Close');
         }
       );
