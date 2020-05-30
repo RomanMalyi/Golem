@@ -1,0 +1,17 @@
+<ejs-accumulationchart
+height="200px"
+width="98%"
+id="chart-container"
+ [legendSettings]="legendSettings">
+  <e-accumulation-series-collection>
+    <e-accumulation-series
+      [dataSource]="piedata"
+      xName="x"
+      yName="y"
+      innerRadius="30%"
+      radius="100%"
+      [dataLabel]="dataLabel"
+      [explode] = "true"
+    ></e-accumulation-series>
+  </e-accumulation-series-collection>
+</ejs-accumulationchart>

@@ -76,3 +76,39 @@
     </p>
   </span>
 </div>
+<div class="charts-container">
+  <div class="small-charts-container">
+    <mat-card class="small-chart">
+      <mat-card-header>
+        <mat-card-title class="card-title">Browsers</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p *ngFor="let browser of browsers; index as i">
+          {{ i + 1 }}. {{ browser }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="small-chart">
+      <mat-card-header>
+        <mat-card-title class="card-title">Countries</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-countries-chart></app-countries-chart>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="big-charts-container">
+    <mat-card class="big-chart">
+      <mat-card-header>
+        <mat-card-title class="card-title">Countries</mat-card-title>
+      </mat-card-header>
+      <mat-card-content> </mat-card-content>
+    </mat-card>
+    <mat-card class="big-chart">
+      <mat-card-header>
+        <mat-card-title class="card-title">Countries</mat-card-title>
+      </mat-card-header>
+      <mat-card-content> </mat-card-content>
+    </mat-card>
+  </div>
+</div>
