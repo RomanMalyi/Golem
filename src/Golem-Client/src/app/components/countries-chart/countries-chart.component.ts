@@ -1,14 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AccumulationChart,
-  AccumulationDataLabel,
-  AccumulationLegend,
-  LegendSettingsModel,
-  AccumulationDataLabelSettingsModel
-} from '@syncfusion/ej2-angular-charts';
 
-
-AccumulationChart.Inject(AccumulationDataLabel, AccumulationLegend);
 @Component({
   selector: 'app-countries-chart',
   templateUrl: './countries-chart.component.html',
@@ -16,8 +7,8 @@ AccumulationChart.Inject(AccumulationDataLabel, AccumulationLegend);
 })
 export class CountriesChartComponent implements OnInit {
   public piedata: Object[];
-  public legendSettings: LegendSettingsModel;
-  public dataLabel: AccumulationDataLabelSettingsModel;
+  public legendSettings: Object;
+  public dataLabel: Object;
   constructor() {}
 
   ngOnInit(): void {

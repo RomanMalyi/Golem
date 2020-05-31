@@ -18,7 +18,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AccumulationChartModule } from '@syncfusion/ej2-angular-charts';
+import { AccumulationChartModule, PieSeriesService, AccumulationLegendService, AccumulationTooltipService, AccumulationDataLabelService, AccumulationAnnotationService } from '@syncfusion/ej2-angular-charts';
 
 import { AppComponent } from './components/app/app.component';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
@@ -32,10 +32,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SessionsTableComponent } from './components/sessions-table/sessions-table.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SpinnerWrapperComponent } from './components/spinner-wrapper/spinner-wrapper.component';
-import { CountriesChartComponent } from './components/charts/countries-chart/countries-chart.component';
-
-
-
+import { CountriesChartComponent } from './components/countries-chart/countries-chart.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +51,7 @@ import { CountriesChartComponent } from './components/charts/countries-chart/cou
   ],
   imports: [
     BrowserModule,
+    AccumulationChartModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -72,9 +70,14 @@ import { CountriesChartComponent } from './components/charts/countries-chart/cou
     MatCheckboxModule,
     FormsModule,
     MatProgressSpinnerModule,
-    AccumulationChartModule,
   ],
-  providers: [],
+  providers: [
+    PieSeriesService,
+    AccumulationLegendService,
+    AccumulationTooltipService,
+    AccumulationDataLabelService,
+    AccumulationAnnotationService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
