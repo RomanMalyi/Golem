@@ -123,7 +123,7 @@ namespace Golem.Core.Services
             var uaParser = Parser.GetDefault();
             var clientInfo = uaParser.Parse(userAgent);
 
-            var location = await locationManager.GetLocation(context.Connection.RemoteIpAddress.ToString());
+            var location = await locationManager.GetLocation(context.Request.Headers["X-Forwarded-For"].ToString());
             var user = new User
             {
                 Country = location.CountryName,
