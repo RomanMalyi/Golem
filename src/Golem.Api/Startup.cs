@@ -5,6 +5,7 @@ using Golem.Data.Elasticsearch;
 using Golem.Data.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,10 +38,17 @@ namespace Golem.Api
             services.WithServices();
             services.WithSwagger();
             services.AddControllers((options => { options.Filters.Add<CookieFilter>(); }));
+            
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = 
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseForwardedHeaders();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
