@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from 'src/app/services/http.service';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-countries-chart',
@@ -9,23 +11,13 @@ export class CountriesChartComponent implements OnInit {
   public piedata: Object[];
   public legendSettings: Object;
   public dataLabel: Object;
-  constructor() {}
+  constructor(
+    private httpService: HttpService,
+    private spinnerService: SpinnerService
+  ) {}
 
   ngOnInit(): void {
-    this.piedata = [
-      { x: 'Jan', y: 3, text: 'Jan: 3' },
-      { x: 'Feb', y: 3.5, text: 'Feb: 3.5' },
-      { x: 'Mar', y: 7, text: 'Mar: 7' },
-      { x: 'Apr', y: 13.5, text: 'Apr: 13.5' },
-      { x: 'May', y: 19, text: 'May: 19' },
-      { x: 'Jun', y: 23.5, text: 'Jun: 23.5' },
-      { x: 'Jul', y: 26, text: 'Jul: 26' },
-      { x: 'Aug', y: 25, text: 'Aug: 25' },
-      { x: 'Sep', y: 21, text: 'Sep: 21' },
-      { x: 'Oct', y: 15, text: 'Oct: 15' },
-      { x: 'Nov', y: 9, text: 'Nov: 9' },
-      { x: 'Dec', y: 3.5, text: 'Dec: 3.5' },
-    ];
+    this.loadCountries();
 
     this.legendSettings = {
       visible: true,
@@ -36,5 +28,22 @@ export class CountriesChartComponent implements OnInit {
     this.dataLabel = {
       visible: false,
     };
+  }
+
+  private loadCountries() {
+    this.spinnerService.showSpinner();
+    this.httpService.getCountriesChartInfo().subscribe(
+      (res) => {
+        this.piedata = [];
+        res.forEach((elem) =>
+          this.piedata.push({ x: elem.name, y: elem.number, text: elem.name })
+        );
+        this.spinnerService.hideSpinner();
+      },
+      (error) => {
+        console.log(error);
+        this.spinnerService.hideSpinner();
+      }
+    );
   }
 }

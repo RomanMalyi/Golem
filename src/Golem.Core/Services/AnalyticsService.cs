@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Golem.Core.Managers;
 using Golem.Core.Models.Dto.Responses;
@@ -39,10 +40,49 @@ namespace Golem.Core.Services
                 result.AverageNumberOfRequests = await userRepository.GetAverageNumberOfRequests();
 
             if (result.NumberOfUsers <= 0) return result;
-            
+
             var bounceUsers = await userRepository.GetUserWithOneRequestCount();
             result.BounceRate = bounceUsers / result.NumberOfUsers * 100;
             result.AverageSessionDuration = await sessionRepository.GetAverageSessionDuration();
+
+            return result;
+        }
+
+        public async Task<List<UserChartColumnResponse>> GetUsersChartInfo()
+        {
+            var result = new List<UserChartColumnResponse>();
+            const int statisticDuration = 7;
+            var columnDay = DateTimeOffset.Now.Date.AddDays(-statisticDuration + 1);
+
+            for (var i = 0; i < statisticDuration; ++i)
+            {
+                result.Add(new UserChartColumnResponse
+                {
+                    Date = columnDay.Date,
+                    SessionsNumber = await sessionRepository.GetCount(columnDay, columnDay.AddDays(1)),
+                    UsersNumber = await userRepository.GetCount(columnDay, columnDay.AddDays(1))
+                });
+                columnDay = columnDay.AddDays(1);
+            }
+
+            return result;
+        }
+
+        public async Task<List<RequestChartColumnResponse>> GetRequestsChartInfo()
+        {
+            var result = new List<RequestChartColumnResponse>();
+            const int statisticDuration = 7;
+            var columnDay = DateTimeOffset.Now.Date.AddDays(-statisticDuration + 1);
+
+            for (var i = 0; i < statisticDuration; ++i)
+            {
+                result.Add(new RequestChartColumnResponse
+                {
+                    Date = columnDay.Date,
+                    RequestsNumber = await queryRepository.GetCount(columnDay, columnDay.AddDays(1))
+                });
+                columnDay = columnDay.AddDays(1);
+            }
 
             return result;
         }

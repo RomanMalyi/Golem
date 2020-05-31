@@ -55,6 +55,7 @@ import { SpinnerWrapperComponent } from './components/spinner-wrapper/spinner-wr
 import { CountriesChartComponent } from './components/countries-chart/countries-chart.component';
 import { UsersChartComponent } from './components/users-chart/users-chart.component';
 import { RequestsChartComponent } from './components/requests-chart/requests-chart.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { RequestsChartComponent } from './components/requests-chart/requests-cha
     MatProgressSpinnerModule,
   ],
   providers: [
+    DatePipe,
     PieSeriesService,
     AccumulationLegendService,
     AccumulationTooltipService,

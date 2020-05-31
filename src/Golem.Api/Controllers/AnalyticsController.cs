@@ -108,5 +108,49 @@ namespace Golem.Api.Controllers
             var result = await analyticsService.GetDashboardOverview();
             return Ok(result);
         }
+        
+        /// <summary>
+        ///     Returns countries chart info
+        /// </summary>
+        [HttpGet("countries-chart")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<DashboardOverviewResponse>> GetCountriesChartInfo()
+        {
+            var result = await userRepository.GetCountries();
+            return Ok(result);
+        }
+        
+        /// <summary>
+        ///     Returns browsers chart info
+        /// </summary>
+        [HttpGet("browsers-chart")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<DashboardOverviewResponse>> GetBrowsersChartInfo()
+        {
+            var result = await userRepository.GetBrowsers();
+            return Ok(result);
+        }
+        
+        /// <summary>
+        ///     Returns browsers chart info
+        /// </summary>
+        [HttpGet("requests-chart")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<DashboardOverviewResponse>> GetRequestsChartInfo()
+        {
+            var result = await analyticsService.GetRequestsChartInfo();
+            return Ok(result);
+        }
+        
+        /// <summary>
+        ///     Returns browsers chart info
+        /// </summary>
+        [HttpGet("users-chart")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<DashboardOverviewResponse>> GetUsersChartInfo()
+        {
+            var result = await analyticsService.GetUsersChartInfo();
+            return Ok(result);
+        }
     }
 }

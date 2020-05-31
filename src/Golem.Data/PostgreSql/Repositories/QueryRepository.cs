@@ -64,7 +64,16 @@ namespace Golem.Data.PostgreSql.Repositories
             var result = dbContext.Queries
                 .Where(q => q.UserId == userId);
             result = ApplyFiltering(creationDateFrom, creationDateTo, showEmpty, result);
-            
+
+            return await result.CountAsync();
+        }
+
+        public async Task<int> GetCount(DateTime? creationDateFrom,
+            DateTime? creationDateTo)
+        {
+            var result = dbContext.Queries.AsQueryable();
+            result = ApplyFiltering(creationDateFrom, creationDateTo, true, result);
+
             return await result.CountAsync();
         }
 

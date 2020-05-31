@@ -85,6 +85,15 @@ namespace Golem.Data.PostgreSql.Repositories
             return await result.CountAsync();
         }
 
+        public async Task<int> GetCount(DateTime? startDateFrom,
+            DateTime? startDateTo)
+        {
+            var result = dbContext.Sessions.AsQueryable();
+            result = ApplyFiltering(startDateFrom, startDateTo, result);
+
+            return await result.CountAsync();
+        }
+
         private static IQueryable<Session> ApplyFiltering(DateTime? startDateFrom,
             DateTime? startDateTo, IQueryable<Session> result)
         {

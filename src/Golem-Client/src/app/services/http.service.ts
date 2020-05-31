@@ -5,6 +5,9 @@ import { ProjectModel } from '../models/projectModel';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { GetInTouch } from '../models/getInTouchModel';
 import { DashboardOverview } from '../models/dashboardOverview';
+import { SmallChartColumnModel } from '../models/smallChartModel';
+import { RequestChartColumnModel } from '../models/requestChartColumnModel';
+import { UserChartColumnModel } from '../models/userChartColumnModel';
 
 @Injectable({
   providedIn: 'root',
@@ -99,6 +102,30 @@ export class HttpService {
       `${this.apiUrl}analytics/users/${userId}/sessions`,
       { params, withCredentials: true }
     );
+  }
+
+  public getBrowsersChartinfo(): Observable<SmallChartColumnModel[]> {
+    return this.http.get<any>(`${this.apiUrl}analytics/browsers-chart`, {
+      withCredentials: true,
+    });
+  }
+
+  public getCountriesChartInfo(): Observable<SmallChartColumnModel[]> {
+    return this.http.get<any>(`${this.apiUrl}analytics/countries-chart`, {
+      withCredentials: true,
+    });
+  }
+
+  public getRequestsChartInfo(): Observable<RequestChartColumnModel[]> {
+    return this.http.get<any>(`${this.apiUrl}analytics/requests-chart`, {
+      withCredentials: true,
+    });
+  }
+
+  public getUsersChartInfo(): Observable<UserChartColumnModel[]> {
+    return this.http.get<any>(`${this.apiUrl}analytics/users-chart`, {
+      withCredentials: true,
+    });
   }
 
   public getDashboardOverview(): Observable<DashboardOverview> {

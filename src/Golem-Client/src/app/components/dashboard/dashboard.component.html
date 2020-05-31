@@ -83,9 +83,10 @@
         <mat-card-title class="card-title">Browsers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p *ngFor="let browser of browsers; index as i">
-          {{ i + 1 }}. {{ browser }}
-        </p>
+        <div class="browser-info" *ngFor="let browser of browsers; index as i">
+          <p>{{ i + 1 }}. {{ browser.name }}</p>
+          <p>{{ browser.number }}</p>
+        </div>
       </mat-card-content>
     </mat-card>
     <mat-card class="small-chart">
@@ -114,7 +115,7 @@
       </mat-card-header>
       <mat-card-content>
         <app-requests-chart></app-requests-chart>
-         </mat-card-content>
+      </mat-card-content>
     </mat-card>
   </div>
 </div>

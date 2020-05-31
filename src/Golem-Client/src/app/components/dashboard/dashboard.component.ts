@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardOverview } from 'src/app/models/dashboardOverview';
 import { HttpService } from 'src/app/services/http.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { SmallChartColumnModel } from 'src/app/models/smallChartModel';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,12 +11,7 @@ import { SpinnerService } from 'src/app/services/spinner.service';
 })
 export class DashboardComponent implements OnInit {
   public overviewData: DashboardOverview;
-  public browsers: string[] = [
-    'Chrome',
-    'Mobile Safari',
-    'Chrome mobile',
-    'Firefox',
-  ];
+  public browsers: SmallChartColumnModel[];
   constructor(
     private httpService: HttpService,
     private spinnerService: SpinnerService
@@ -23,6 +19,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
+    this.loadBrowsers();
   }
 
   private loadUsers() {
@@ -30,6 +27,20 @@ export class DashboardComponent implements OnInit {
     this.httpService.getDashboardOverview().subscribe(
       (res) => {
         this.overviewData = res;
+        this.spinnerService.hideSpinner();
+      },
+      (error) => {
+        console.log(error);
+        this.spinnerService.hideSpinner();
+      }
+    );
+  }
+
+  private loadBrowsers() {
+    this.spinnerService.showSpinner();
+    this.httpService.getBrowsersChartinfo().subscribe(
+      (res) => {
+        this.browsers = res;
         this.spinnerService.hideSpinner();
       },
       (error) => {

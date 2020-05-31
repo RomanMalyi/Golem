@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Golem.Data.PostgreSql.Models;
+using Golem.Data.PostgreSql.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Golem.Data.PostgreSql.Repositories
@@ -73,6 +74,30 @@ namespace Golem.Data.PostgreSql.Repositories
             return await dbContext.Users
                 .Where(user => user.NumberOfRequests == 1)
                 .CountAsync();
+        }
+
+        public async Task<IList<Country>> GetCountries()
+        {
+            return await dbContext.Users
+                .GroupBy(user => user.Country)
+                .Select(result => new Country
+                {
+                    Name = result.Key,
+                    Number = result.Count()
+                })
+                .ToListAsync();
+        }
+        
+        public async Task<IList<Browser>> GetBrowsers()
+        {
+            return await dbContext.Users
+                .GroupBy(user => user.UserAgent)
+                .Select(result => new Browser
+                {
+                    Name = result.Key,
+                    Number = result.Count()
+                })
+                .ToListAsync();
         }
 
         private static IQueryable<User> ApplyFiltering(DateTime? lastVisitDateFrom, DateTime? lastVisitDateTo,
