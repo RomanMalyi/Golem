@@ -100,15 +100,21 @@
   <div class="big-charts-container">
     <mat-card class="big-chart">
       <mat-card-header>
-        <mat-card-title class="card-title">Countries</mat-card-title>
+        <mat-card-title class="card-title">Users/Sessions</mat-card-title>
+        <mat-card-subtitle>Last week</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content> </mat-card-content>
+      <mat-card-content>
+        <app-users-chart></app-users-chart>
+      </mat-card-content>
     </mat-card>
     <mat-card class="big-chart">
       <mat-card-header>
-        <mat-card-title class="card-title">Countries</mat-card-title>
+        <mat-card-title class="card-title">Requests</mat-card-title>
+        <mat-card-subtitle>Last week</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content> </mat-card-content>
+      <mat-card-content>
+        <app-requests-chart></app-requests-chart>
+         </mat-card-content>
     </mat-card>
   </div>
 </div>

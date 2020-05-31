@@ -55,7 +55,7 @@ namespace Golem.Api
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithOrigins("http://localhost:4200", "https://golem.gq"));
+                .WithOrigins("https://golem.gq","http://localhost:4200"));
 
             app.UseAuthorization();
 
