@@ -15,6 +15,15 @@ services:
       - golem.postgres
       - golem.elasticsearch
 
+  golem.ml:
+    build:
+      context: .
+      dockerfile: Golem.Ml/Dockerfile
+    ports:
+      - "8000:80"
+    networks:
+      - golem-net
+
   golem.client:
     build:
       context: .
