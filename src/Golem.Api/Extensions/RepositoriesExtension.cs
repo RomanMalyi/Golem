@@ -7,9 +7,10 @@ namespace Golem.Api.Extensions
     {
         public static void WithRepositories(this IServiceCollection services)
         {
-            services.AddScoped<UserRepository>();
+            services.AddScoped<AnalyticUserRepository>();
             services.AddScoped<QueryRepository>();
             services.AddScoped<SessionRepository>();
+            services.AddScoped<RefreshTokenRepository>();
         }
 
     }

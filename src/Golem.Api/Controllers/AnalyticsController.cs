@@ -16,18 +16,18 @@ namespace Golem.Api.Controllers
     public class AnalyticsController : ControllerBase
     {
         private readonly AnalyticsService analyticsService;
-        private readonly UserRepository userRepository;
+        private readonly AnalyticUserRepository analyticUserRepository;
         private readonly QueryRepository queryRepository;
         private readonly SessionRepository sessionRepository;
         private readonly IMapper mapper;
 
-        public AnalyticsController(UserRepository userRepository,
+        public AnalyticsController(AnalyticUserRepository analyticUserRepository,
             QueryRepository queryRepository,
             IMapper mapper,
             AnalyticsService analyticsService,
             SessionRepository sessionRepository)
         {
-            this.userRepository = userRepository;
+            this.analyticUserRepository = analyticUserRepository;
             this.queryRepository = queryRepository;
             this.mapper = mapper;
             this.analyticsService = analyticsService;
@@ -45,11 +45,11 @@ namespace Golem.Api.Controllers
             [FromQuery] int take = 20,
             [FromQuery] int skip = 0)
         {
-            var users = await userRepository.Get(lastVisitDateFrom, lastVisitDateTo, skip, take);
+            var users = await analyticUserRepository.Get(lastVisitDateFrom, lastVisitDateTo, skip, take);
             var result = new
             {
                 users = mapper.Map<IEnumerable<User>, IEnumerable<UserResponse>>(users),
-                totalCount = await userRepository.GetCount(lastVisitDateFrom, lastVisitDateTo)
+                totalCount = await analyticUserRepository.GetCount(lastVisitDateFrom, lastVisitDateTo)
             };
             return Ok(result);
         }
@@ -116,7 +116,7 @@ namespace Golem.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<DashboardOverviewResponse>> GetCountriesChartInfo()
         {
-            var result = await userRepository.GetCountries();
+            var result = await analyticUserRepository.GetCountries();
             return Ok(result);
         }
         
@@ -127,7 +127,7 @@ namespace Golem.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<DashboardOverviewResponse>> GetBrowsersChartInfo()
         {
-            var result = await userRepository.GetBrowsers();
+            var result = await analyticUserRepository.GetBrowsers();
             return Ok(result);
         }
         

@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Golem.Data.PostgreSql.Repositories
 {
-    public class UserRepository
+    public class AnalyticUserRepository
     {
         private readonly GolemContext dbContext;
 
-        public UserRepository(GolemContext context)
+        public AnalyticUserRepository(GolemContext context)
         {
             dbContext = context;
         }
@@ -21,7 +21,7 @@ namespace Golem.Data.PostgreSql.Repositories
             int take)
         {
             var result =
-                dbContext.Users
+                dbContext.AnalyticUsers
                     .OrderByDescending(u => u.NumberOfVisits)
                     .AsQueryable();
             result = ApplyFiltering(lastVisitDateFrom, lastVisitDateTo, result);
@@ -34,51 +34,51 @@ namespace Golem.Data.PostgreSql.Repositories
 
         public async Task<User> GetById(Guid id)
         {
-            return await dbContext.Users.FindAsync(id);
+            return await dbContext.AnalyticUsers.FindAsync(id);
         }
 
         public async Task Create(User entity)
         {
-            dbContext.Users.Add(entity);
+            dbContext.AnalyticUsers.Add(entity);
             await dbContext.SaveChangesAsync();
         }
 
         public async Task Update(User entity)
         {
-            dbContext.Users.Update(entity);
+            dbContext.AnalyticUsers.Update(entity);
             await dbContext.SaveChangesAsync();
         }
 
         public async Task Delete(User entity)
         {
-            dbContext.Users.Remove(entity);
+            dbContext.AnalyticUsers.Remove(entity);
             await dbContext.SaveChangesAsync();
         }
 
         public async Task<double> GetAverageNumberOfRequests()
         {
-            return await dbContext.Users
+            return await dbContext.AnalyticUsers
                 .Select(u => u.Queries.Count)
                 .AverageAsync();
         }
 
         public async Task<int> GetCount(DateTime? lastVisitDateFrom, DateTime? lastVisitDateTo)
         {
-            var result = dbContext.Users.AsQueryable();
+            var result = dbContext.AnalyticUsers.AsQueryable();
             result = ApplyFiltering(lastVisitDateFrom, lastVisitDateTo, result);
             return await result.CountAsync();
         }
 
         public async Task<int> GetUserWithOneRequestCount()
         {
-            return await dbContext.Users
+            return await dbContext.AnalyticUsers
                 .Where(user => user.NumberOfRequests == 1)
                 .CountAsync();
         }
 
         public async Task<IList<Country>> GetCountries()
         {
-            return await dbContext.Users
+            return await dbContext.AnalyticUsers
                 .GroupBy(user => user.Country)
                 .Select(result => new Country
                 {
@@ -90,7 +90,7 @@ namespace Golem.Data.PostgreSql.Repositories
         
         public async Task<IList<Browser>> GetBrowsers()
         {
-            return await dbContext.Users
+            return await dbContext.AnalyticUsers
                 .GroupBy(user => user.UserAgent)
                 .Select(result => new Browser
                 {

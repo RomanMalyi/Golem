@@ -6,6 +6,7 @@ using Golem.Data.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,12 +24,14 @@ namespace Golem.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             //TODO: delete default connection
             var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
             services.AddDbContext<GolemContext>(options =>
             {
                 options.UseNpgsql(connectionString ?? Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.WithIdentity();
             services.AddHttpClient();
             services.WithAppSettings(Configuration);
             services.WithMapper();
@@ -36,8 +39,15 @@ namespace Golem.Api
             services.WithRepositories();
             services.AddScoped<MockProjects>();
             services.WithServices();
+            services.WithAuthentication(Configuration);
             services.WithSwagger();
-            services.AddControllers((options => { options.Filters.Add<CookieFilter>(); }));
+            
+            services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
+            services.AddControllers((options =>
+            {
+                options.Filters.Add<ApplicationExceptionFilter>();
+                options.Filters.Add<CookieFilter>();
+            }));
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = 
@@ -64,6 +74,7 @@ namespace Golem.Api
                 .AllowCredentials()
                 .WithOrigins("https://golem.gq","http://localhost:4200"));
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

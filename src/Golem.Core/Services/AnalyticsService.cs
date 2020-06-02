@@ -12,17 +12,17 @@ namespace Golem.Core.Services
 {
     public class AnalyticsService
     {
-        private readonly UserRepository userRepository;
+        private readonly AnalyticUserRepository analyticUserRepository;
         private readonly QueryRepository queryRepository;
         private readonly SessionRepository sessionRepository;
         private readonly LocationManager locationManager;
 
-        public AnalyticsService(UserRepository userRepository,
+        public AnalyticsService(AnalyticUserRepository analyticUserRepository,
             QueryRepository queryRepository,
             SessionRepository sessionRepository,
             LocationManager locationManager)
         {
-            this.userRepository = userRepository;
+            this.analyticUserRepository = analyticUserRepository;
             this.queryRepository = queryRepository;
             this.sessionRepository = sessionRepository;
             this.locationManager = locationManager;
@@ -33,15 +33,15 @@ namespace Golem.Core.Services
             var result = new DashboardOverviewResponse()
             {
                 NumberOfRequests = await queryRepository.GetCount(),
-                NumberOfUsers = await userRepository.GetCount(null, null),
+                NumberOfUsers = await analyticUserRepository.GetCount(null, null),
                 NumberOfSessions = await sessionRepository.GetCount()
             };
             if (result.NumberOfRequests > 0 && result.NumberOfUsers > 0)
-                result.AverageNumberOfRequests = await userRepository.GetAverageNumberOfRequests();
+                result.AverageNumberOfRequests = await analyticUserRepository.GetAverageNumberOfRequests();
 
             if (result.NumberOfUsers <= 0) return result;
 
-            var bounceUsers = await userRepository.GetUserWithOneRequestCount();
+            var bounceUsers = await analyticUserRepository.GetUserWithOneRequestCount();
             result.BounceRate = bounceUsers / result.NumberOfUsers * 100;
             result.AverageSessionDuration = await sessionRepository.GetAverageSessionDuration();
 
@@ -60,7 +60,7 @@ namespace Golem.Core.Services
                 {
                     Date = columnDay.Date,
                     SessionsNumber = await sessionRepository.GetCount(columnDay, columnDay.AddDays(1)),
-                    UsersNumber = await userRepository.GetCount(columnDay, columnDay.AddDays(1))
+                    UsersNumber = await analyticUserRepository.GetCount(columnDay, columnDay.AddDays(1))
                 });
                 columnDay = columnDay.AddDays(1);
             }
@@ -99,7 +99,7 @@ namespace Golem.Core.Services
             }
             else
             {
-                user = await userRepository.GetById(Guid.Parse(cookie));
+                user = await analyticUserRepository.GetById(Guid.Parse(cookie));
                 if (user == null)
                 {
                     user = await CreateUser(Guid.Parse(cookie), context);
@@ -139,7 +139,7 @@ namespace Golem.Core.Services
             if (userId.HasValue)
                 user.Id = userId.Value;
 
-            await userRepository.Create(user);
+            await analyticUserRepository.Create(user);
             return user;
         }
 
@@ -161,7 +161,7 @@ namespace Golem.Core.Services
             await UpdateUserSession(user);
             user.NumberOfRequests++;
             user.LastVisitTime = DateTimeOffset.Now;
-            await userRepository.Update(user);
+            await analyticUserRepository.Update(user);
         }
 
         private async Task CreateUserSession(Guid userId)

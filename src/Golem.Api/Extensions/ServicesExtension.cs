@@ -12,6 +12,8 @@ namespace Golem.Api.Extensions
             services.AddTransient<IEmailService, SendGridService>();
             services.AddTransient<AnalyticsService>();
             services.AddTransient<LocationManager>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAccountService, AccountService>();
         }
     }
 }
