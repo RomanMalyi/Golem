@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Golem.Core.Managers;
 using Golem.Data.Elasticsearch.Models;
 using Microsoft.AspNetCore.Mvc;
 using Nest;
@@ -11,10 +12,13 @@ namespace Golem.Api.Controllers
     public class ElasticsearchController : ControllerBase
     {
         private readonly ElasticClient elasticClient;
+        private readonly SearchManager searchManager;
 
-        public ElasticsearchController(ElasticClient elasticClient)
+        public ElasticsearchController(ElasticClient elasticClient,
+            SearchManager searchManager)
         {
             this.elasticClient = elasticClient;
+            this.searchManager = searchManager;
         }
 
         /// <summary>
@@ -23,7 +27,22 @@ namespace Golem.Api.Controllers
         [HttpGet("elasticsearch")]
         public async Task<ActionResult<List<Project>>> Search([FromQuery] string searchTerm)
         {
-            var result = await
+            var result = await SearchAsync(searchTerm);
+
+            if (result.Documents.Count == 0)
+            {
+               var similar = await searchManager.GetSimilar(searchTerm);
+               result = await SearchAsync(similar);
+            }
+
+            return Ok(result.Documents.Count != 0
+                ? result.Documents
+                : (await elasticClient.SearchAsync<Project>(s => s.Take(5))).Documents);
+        }
+
+        private async Task<ISearchResponse<Project>> SearchAsync(string searchTerm)
+        {
+            return await
                 elasticClient.SearchAsync<Project>(s =>
                     s.Query(q => q
                             .MultiMatch(m => m
@@ -34,10 +53,6 @@ namespace Golem.Api.Controllers
                         )
                         .Take(6)
                 );
-
-            return Ok(result.Documents.Count != 0
-                ? result.Documents
-                : (await elasticClient.SearchAsync<Project>(s => s.Take(5))).Documents);
         }
     }
 }

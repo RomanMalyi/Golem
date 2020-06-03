@@ -14,6 +14,7 @@ namespace Golem.Api.Extensions
             services.AddTransient<LocationManager>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<SearchManager>();
         }
     }
 }
