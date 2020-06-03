@@ -42,7 +42,7 @@ namespace Golem.Core.Services
             if (result.NumberOfUsers <= 0) return result;
 
             var bounceUsers = await analyticUserRepository.GetUserWithOneRequestCount();
-            result.BounceRate = bounceUsers / result.NumberOfUsers * 100;
+            result.BounceRate = (float) bounceUsers / result.NumberOfUsers * 100;
             result.AverageSessionDuration = await sessionRepository.GetAverageSessionDuration();
 
             return result;
