@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -18,6 +18,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {
   AccumulationChartModule,
   PieSeriesService,
@@ -56,6 +57,8 @@ import { CountriesChartComponent } from './components/countries-chart/countries-
 import { UsersChartComponent } from './components/users-chart/users-chart.component';
 import { RequestsChartComponent } from './components/requests-chart/requests-chart.component';
 import { DatePipe } from '@angular/common';
+import { LoginComponent } from './components/login/login.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -73,6 +76,7 @@ import { DatePipe } from '@angular/common';
     CountriesChartComponent,
     UsersChartComponent,
     RequestsChartComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,8 +100,14 @@ import { DatePipe } from '@angular/common';
     MatCheckboxModule,
     FormsModule,
     MatProgressSpinnerModule,
+    MatToolbarModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
     DatePipe,
     PieSeriesService,
     AccumulationLegendService,

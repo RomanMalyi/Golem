@@ -9,7 +9,7 @@ namespace Golem.Api.Filters
 {
     public class CookieFilter : IAsyncActionFilter
     {
-        private static readonly string[] ExcludedPathsFromAnalytics = {"analytics"};
+        private static readonly string[] ExcludedPathsFromAnalytics = {"account", "analytics"};
         private const string CookieKey = "session-id";
         private readonly AnalyticsService analyticsService;
 
