@@ -5,7 +5,7 @@ namespace Golem.Core.Managers
 {
     public class SearchManager
     {
-        private const string BaseUrl = "http://golem.ml:8000/similar";
+        private const string BaseUrl = "http://golem.ml/similar";
         private readonly IHttpClientFactory httpClientFactory;
 
         public SearchManager(IHttpClientFactory httpClientFactory)
