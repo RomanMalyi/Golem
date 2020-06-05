@@ -32,7 +32,7 @@ namespace Golem.Api.Filters
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO:add logging
             }

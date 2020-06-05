@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://golem.gq:5000/api/',
+  apiUrl: 'http://localhost:5050/api/',
 };
