@@ -1,0 +1,17 @@
+<div class="gallery-container">
+  <div class="products-container">
+    <div *ngFor="let product of products" class="product">
+      <h2>{{ product.title }}</h2>
+      <div class="product-img">
+        <img [src]="transform(product.imageBase64)" alt="Product" />
+      </div>
+      <p class="product-info">
+        {{
+          product.description.length > 150
+            ? (product.description | slice: 0:150) + ".."
+            : product.description
+        }}
+      </p>
+    </div>
+  </div>
+</div>

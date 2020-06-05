@@ -1,8 +1,84 @@
-version: '3.4'
+version: '3.7'
 
 services:
   golem.api:
-    image: ${DOCKER_REGISTRY-}golemapi
     build:
       context: .
       dockerfile: Golem.Api/Dockerfile
+    ports:
+      - "5050:80"
+    environment:
+      DB_CONNECTION_STRING: "host=golem.postgres;port=5432;database=golemdb;username=golemuser;password=strongpassword2"
+    networks:
+      - golem-net
+    depends_on:
+      - golem.postgres
+      - golem.elasticsearch
+
+  golem.ml:
+    build:
+      context: .
+      dockerfile: Golem.Ml/Dockerfile
+    ports:
+      - "8000:80"
+    networks:
+      - golem-net
+
+  golem.client:
+    build:
+      context: .
+      dockerfile: Golem-Client/Dockerfile
+    ports:
+      - "8888:80"
+    networks:
+      - golem-net
+    depends_on:
+      - golem.api
+
+  golem.elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - g-elastic:/usr/share/elasticsearch/data
+    networks:
+      - golem-net
+
+  golem.kibana:
+    image: docker.elastic.co/kibana/kibana:7.6.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://golem.elasticsearch:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - golem-net
+    depends_on:
+      - golem.elasticsearch
+
+  golem.postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - g-postgres:/var/lib/postgresql/data
+    restart: always
+    environment:
+      - POSTGRES_USER=golemuser
+      - POSTGRES_PASSWORD=strongpassword2
+      - POSTGRES_DB=golemdb
+    networks:
+      - golem-net
+
+networks:
+  golem-net:
+    driver: bridge
+
+volumes:
+  g-postgres:
+    driver: local
+  g-elastic:
+    driver: local

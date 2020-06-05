@@ -1,0 +1,88 @@
+@import "../../../styles/colors.scss";
+
+.main-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+
+  padding: 20px;
+
+  .users-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .filtering-container {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        margin-right: 12px;
+        margin-bottom: 0px;
+        font-weight: 400;
+      }
+
+      .picker {
+        width: 130px;
+      }
+
+      mat-form-field {
+        margin-right: 12px;
+      }
+    }
+
+    h2 {
+      text-align: center;
+      width: 100%;
+    }
+
+    .mat-column-position {
+      width: 50px;
+    }
+
+    .mat-column-numberOfVisits {
+      width: 120px;
+    }
+
+    .mat-column-numberOfRequests {
+      width: 120px;
+    }
+
+    .mat-column-lastVisitTime {
+      width: 150px;
+    }
+
+    .mat-column-country {
+      width: 150px;
+    }
+
+    .mat-column-actions {
+      width: 150px;
+    }
+  }
+
+  .user-info-container {
+    width: 450px;
+
+    p {
+      font-size: 16px;
+      color: $golem-primary;
+    }
+  }
+}
+
+.card-title {
+text-align: center;
+padding-bottom: 20px;;
+}
+.actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.current {
+  background-color: $golem-white;
+}

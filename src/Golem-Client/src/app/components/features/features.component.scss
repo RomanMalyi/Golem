@@ -1,0 +1,39 @@
+@import "../../../styles/colors.scss";
+
+.main-container {
+  text-align: center;
+  padding: 40px;
+
+  h4 {
+    width: 50%;
+    margin: auto;
+  }
+
+  .features-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .feature {
+      width: 30%;
+      padding: 10px;
+      display: flex;
+
+      .feature-img {
+        width: 30%;
+
+        img {
+          padding-top: 40px;
+          width: 50%;
+        }
+      }
+      .feature-info {
+        text-align: left;
+        width: 65%;
+        padding: 25px;
+      }
+    }
+  }
+}
+
+@import "features-responsive.component.scss";

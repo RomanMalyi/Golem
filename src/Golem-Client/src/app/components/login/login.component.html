@@ -1,0 +1,65 @@
+<div class="main-container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Golem Analytics</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="login-container">
+    <div class="photo"></div>
+    <div class="inputs">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title class="card-title">Sign in to your account</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form class="example-form">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email Address</mat-label>
+              <input
+                matInput
+                [formControl]="emailFormControl"
+                [errorStateMatcher]="matcher"
+                placeholder="Ex. pat@example.com"
+              />
+              <mat-error
+                *ngIf="
+                  emailFormControl.hasError('email') &&
+                  !emailFormControl.hasError('required')
+                "
+              >
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                type="password"
+                [formControl]="passwordFormControl"
+                [errorStateMatcher]="matcher"
+                placeholder="Password"
+              />
+              <mat-error
+                *ngIf="
+                  emailFormControl.hasError('email') &&
+                  !emailFormControl.hasError('required')
+                "
+              >
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                Password is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </form>
+          <button class="full-width" (click)="Login()" mat-raised-button color="primary">
+            Sign in
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

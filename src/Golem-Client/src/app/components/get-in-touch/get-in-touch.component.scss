@@ -1,0 +1,37 @@
+.main-container {
+  text-align: center;
+  padding: 40px;
+
+  h4 {
+    width: 50%;
+    margin: auto;
+  }
+
+  form {
+    width: 60%;
+    margin: auto;
+
+    .text-area-field {
+      width: 100%;
+    }
+
+    .inputs-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .input-mat-field {
+        width: 40%;
+        padding-right: 10px;
+      }
+
+      button {
+        margin-top: 0.25em;
+        width: 20%;
+        height: 68px;
+      }
+    }
+  }
+}
+
+@import 'get-in-touch-responsive.component.scss'

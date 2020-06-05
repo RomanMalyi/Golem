@@ -1,0 +1,76 @@
+.queries-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 30px;
+
+  .filtering-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      margin-right: 12px;
+      margin-bottom: 0px;
+      font-weight: 400;
+    }
+
+    .picker {
+      width: 130px;
+    }
+
+    mat-form-field {
+      margin-right: 12px;
+    }
+  }
+
+  h2 {
+    text-align: center;
+    width: 100%;
+  }
+
+  .mat-column-path {
+    width: 450px;
+  }
+
+  .mat-column-queryString {
+    width: 450px;
+  }
+
+  .mat-column-position {
+    width: 50px;
+  }
+
+  .mat-column-methodType {
+    width: 150px;
+  }
+}
+.get {
+  span {
+    border-radius: 5px;
+    background-color: #77b5ee;
+  }
+}
+
+.post {
+  span {
+    border-radius: 5px;
+    background-color: #47cd91;
+  }
+}
+
+.put {
+  span {
+    border-radius: 5px;
+    background-color: #f6a238;
+  }
+}
+
+.delete {
+  span {
+    border-radius: 5px;
+    background-color: #ee433e;
+  }
+}
