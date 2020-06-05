@@ -22,9 +22,9 @@ namespace Golem.Api.Filters
         {
             try
             {
-                var cookie = GetCookie(CookieKey, context.HttpContext.Request);
                 if (!IsPathExcludedFromAnalytics(context.HttpContext))
                 {
+                    var cookie = GetCookie(CookieKey, context.HttpContext.Request);
                     var userId = await analyticsService.SaveRequest(cookie, context.HttpContext);
                     if (cookie == null)
                     {

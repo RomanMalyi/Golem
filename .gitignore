@@ -10,3 +10,5 @@ src/Golem.Core/bin/
 src/Golem.Data/bin/
 src/Golem.Ml/glove.6B.100d.txt
 src/Golem.Ml/glove.6B.100d.txt.word2vec
+src/Golem.Tests/bin/
+src/Golem.Tests/obj/

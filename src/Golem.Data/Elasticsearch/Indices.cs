@@ -10,9 +10,7 @@ namespace Golem.Data.Elasticsearch
         public static IAnalysis AddCustomSearchAnalyzer(this AnalysisDescriptor analysis)
         {
             const string lowercase = nameof(lowercase);
-
-            // https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-edgengram-tokenizer.html
-            // names aren't really important, they are just keys
+            
             return 
                 analysis
                     .Analyzers(a => a
