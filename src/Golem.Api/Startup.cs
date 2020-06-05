@@ -41,7 +41,7 @@ namespace Golem.Api
             services.WithServices();
             services.WithAuthentication(Configuration);
             services.WithSwagger();
-            
+
             services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
             services.AddControllers((options =>
             {
@@ -50,7 +50,7 @@ namespace Golem.Api
             }));
             services.Configure<ForwardedHeadersOptions>(options =>
             {
-                options.ForwardedHeaders = 
+                options.ForwardedHeaders =
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             });
         }
@@ -72,7 +72,7 @@ namespace Golem.Api
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithOrigins("https://golem.gq","http://localhost:4200"));
+                .WithOrigins("https://golem.gq", "http://localhost:4200", "http://localhost:8888"));
 
             app.UseAuthentication();
             app.UseAuthorization();
