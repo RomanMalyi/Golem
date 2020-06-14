@@ -105,11 +105,11 @@ namespace Golem.Data.PostgreSql.Repositories
         {
             if (lastVisitDateFrom.HasValue)
                 result = result
-                    .Where(user => user.LastVisitTime >= lastVisitDateFrom.Value);
+                    .Where(user => user.LastVisitTime >= lastVisitDateFrom.Value.Date);
 
             if (lastVisitDateTo.HasValue)
                 result = result
-                    .Where(user => user.LastVisitTime <= lastVisitDateTo.Value);
+                    .Where(user => user.LastVisitTime <= lastVisitDateTo.Value.Date);
 
             return result;
         }
