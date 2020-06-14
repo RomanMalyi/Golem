@@ -97,6 +97,8 @@ namespace Golem.Data.PostgreSql.Repositories
                     Name = result.Key,
                     Number = result.Count()
                 })
+                .OrderByDescending(b=>b.Number)
+                .Take(8)
                 .ToListAsync();
         }
 
@@ -105,11 +107,11 @@ namespace Golem.Data.PostgreSql.Repositories
         {
             if (lastVisitDateFrom.HasValue)
                 result = result
-                    .Where(user => user.LastVisitTime >= lastVisitDateFrom.Value.Date);
+                    .Where(user => user.LastVisitTime >= lastVisitDateFrom.Value);
 
             if (lastVisitDateTo.HasValue)
                 result = result
-                    .Where(user => user.LastVisitTime <= lastVisitDateTo.Value.Date);
+                    .Where(user => user.LastVisitTime <= lastVisitDateTo.Value.AddHours(24));
 
             return result;
         }

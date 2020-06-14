@@ -103,7 +103,7 @@ namespace Golem.Data.PostgreSql.Repositories
 
             if (startDateTo.HasValue)
                 result = result
-                    .Where(user => user.StartTime <= startDateTo.Value);
+                    .Where(user => user.StartTime <= startDateTo.Value.AddHours(24));
 
             return result;
         }

@@ -90,7 +90,7 @@ namespace Golem.Data.PostgreSql.Repositories
 
             if (creationDateTo.HasValue)
                 result = result
-                    .Where(query => query.CreationDate <= creationDateTo.Value);
+                    .Where(query => query.CreationDate <= creationDateTo.Value.AddHours(24));
 
             return result;
         }
