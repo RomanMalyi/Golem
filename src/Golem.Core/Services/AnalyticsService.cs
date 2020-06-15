@@ -123,9 +123,7 @@ namespace Golem.Core.Services
             var uaParser = Parser.GetDefault();
             var clientInfo = uaParser.Parse(userAgent);
             
-            //uncomment this for a virtual machine with Nginx
-            //var location = await locationManager.GetLocation(context.Request.Headers["X-Forwarded-For"].ToString());
-            var location = await locationManager.GetLocation(context.Connection.RemoteIpAddress.ToString());
+            var location = await locationManager.GetLocation(context.Request.Headers["X-Forwarded-For"].ToString());
             var user = new User
             {
                 Country = location.CountryName,
