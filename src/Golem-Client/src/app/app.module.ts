@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatDialogModule} from '@angular/material/dialog';
 import {
   AccumulationChartModule,
   PieSeriesService,
@@ -59,6 +60,7 @@ import { RequestsChartComponent } from './components/requests-chart/requests-cha
 import { DatePipe } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ProductInfoModalComponent } from './components/modals/product-info-modal/product-info-modal.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     UsersChartComponent,
     RequestsChartComponent,
     LoginComponent,
+    ProductInfoModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,7 +103,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     MatCheckboxModule,
     FormsModule,
     MatProgressSpinnerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDialogModule
   ],
   providers: [
     {

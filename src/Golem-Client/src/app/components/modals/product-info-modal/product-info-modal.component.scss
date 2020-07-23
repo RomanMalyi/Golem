@@ -1,0 +1,28 @@
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dialog-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .product-img {
+    max-width: 300px;
+    max-height: 300px;
+    text-align: center;
+    overflow: hidden;
+    margin: auto;
+
+    img {
+      width: 100%;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+  }
+
+  .product-description {
+    margin: 20px 0 20px 20px;
+  }
+}

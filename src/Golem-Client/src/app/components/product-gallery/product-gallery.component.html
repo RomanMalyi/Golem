@@ -1,6 +1,6 @@
 <div class="gallery-container">
   <div class="products-container">
-    <div *ngFor="let product of products" class="product">
+    <div *ngFor="let product of products" class="product" (click)="openDialog(product)">
       <h2>{{ product.title }}</h2>
       <div class="product-img">
         <img [src]="transform(product.imageBase64)" alt="Product" />
