@@ -1,0 +1,43 @@
+<div class="main-container">
+  <h1>Get In Touch</h1>
+  <h4>
+    Whether you have a question about features, trials, pricing, need a demo, or
+    anything else, our team is ready to answer all your questions.
+  </h4>
+
+  <form [formGroup]="getInTouchForm">
+    <mat-form-field appearance="outline" class="text-area-field">
+      <mat-label>Message</mat-label>
+      <textarea
+        required
+        matInput
+        placeholder="Ex. It makes me feel..."
+        formControlName="message"
+      ></textarea>
+    </mat-form-field>
+    <div class="inputs-container">
+      <mat-form-field appearance="outline" class="input-mat-field">
+        <mat-label>Email Address</mat-label>
+        <input
+          required
+          type="email"
+          matInput
+          placeholder="Email"
+          formControlName="senderEmail"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-mat-field">
+        <mat-label>Full Name</mat-label>
+        <input
+          required
+          matInput
+          placeholder="Full Name"
+          formControlName="senderFullName"
+        />
+      </mat-form-field>
+      <button (click)="SendEmail()" mat-raised-button color="primary">
+        Send
+      </button>
+    </div>
+  </form>
+</div>

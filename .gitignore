@@ -1,0 +1,14 @@
+src/.idea/
+src/.vs/
+src/Golem.Api/bin/
+src/Golem.Api/obj/
+src/obj/
+src/Golem.sln.DotSettings.user
+src/Golem.Core/obj/
+src/Golem.Data/obj/
+src/Golem.Core/bin/
+src/Golem.Data/bin/
+src/Golem.Ml/glove.6B.100d.txt
+src/Golem.Ml/glove.6B.100d.txt.word2vec
+src/Golem.Tests/bin/
+src/Golem.Tests/obj/

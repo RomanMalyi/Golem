@@ -1,0 +1,46 @@
+.queries-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 30px;
+
+  .filtering-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      margin-right: 12px;
+      margin-bottom: 0px;
+      font-weight: 400;
+    }
+
+    .picker {
+      width: 130px;
+    }
+
+    mat-form-field {
+      margin-right: 12px;
+    }
+  }
+
+  h2 {
+    text-align: center;
+    width: 100%;
+  }
+
+  .mat-column-position {
+    width: 50px;
+  }
+
+  .mat-column-startTime {
+    width: 450px;
+  }
+
+  .mat-column-endTime {
+    width: 450px;
+  }
+
+}
